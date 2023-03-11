@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Teste de Audição</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+    <br>
+    <form>
+        <label for="x-value">Insira o valor de X:</label>
+        <input type="number" id="x-value">
+        <br>
+        <label for="y-value">Insira o valor de Y:</label>
+        <input type="number" id="y-value">
+        <br>
+        <button type="button" onclick="addData()">Adicionar Ponto</button>
+    </form>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Resultado do Teste',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    data: []
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Decibéis'
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'logarithmic',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Frequências Sonoras (Hz)'
+                        },
+                        ticks: {
+                            min: 100,
+                            max: 10000,
+                            callback: function (value, index, values) {
+                                return Number(value.toString());
+                            },
+                            major: {
+                                fontStyle: 'bold',
+                                fontColor: '#000'
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+
+        function addData() {
+            var xValue = Number(document.getElementById('x-value').value);
+            var yValue = Number(document.getElementById('y-value').value);
+            myChart.data.datasets[0].data.push({x: xValue, y: yValue});
+            myChart.update();
+        }
+    </script>
+</body>
+</html>
+
+
+

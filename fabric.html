@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fabric.js - Criando uma linha em metros e capturando coordenadas</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js"></script>
+</head>
+<body>
+
+	<h1>Fabric.js - Criando uma linha em metros e capturando coordenadas</h1>
+
+	<p>Para criar uma linha, clique em dois pontos na tela.</p>
+
+	<canvas id="canvas" width="400" height="400"></canvas>
+
+	<script>
+		// Criando um canvas
+		var canvas = new fabric.Canvas('canvas');
+
+		// Definindo a escala (100 pixels = 1 metro)
+		var pixelsPerMeter = 100;
+
+		// Variáveis para armazenar as coordenadas dos pontos inicial e final da linha
+		var startPoint = null;
+		var endPoint = null;
+
+		// Adicionando um evento de clique ao canvas
+		canvas.on('mouse:down', function(event) {
+			// Verificando se é o primeiro ou segundo clique
+			if (!startPoint) {
+				startPoint = {
+					x: event.e.clientX,
+					y: event.e.clientY
+				};
+			} else {
+				endPoint = {
+					x: event.e.clientX,
+					y: event.e.clientY
+				};
+
+				// Convertendo as coordenadas dos pontos em pixels para metros
+				var startMeterX = startPoint.x / pixelsPerMeter;
+				var startMeterY = startPoint.y / pixelsPerMeter;
+				var endMeterX = endPoint.x / pixelsPerMeter;
+				var endMeterY = endPoint.y / pixelsPerMeter;
+
+				// Criando uma nova linha com as coordenadas dos dois pontos em metros
+				var line = new fabric.Line([startMeterX, startMeterY, endMeterX, endMeterY], {
+					strokeWidth: 2,
+					stroke: 'red'
+				});
+
+				// Adicionando a linha ao canvas
+				canvas.add(line);
+
+				// Capturando as coordenadas dos pontos inicial e final da linha em metros
+				console.log('Coordenadas do ponto inicial: ' + startMeterX + 'm,' + startMeterY + 'm');
+				console.log('Coordenadas do ponto final: ' + endMeterX + 'm,' + endMeterY + 'm');
+
+				// Resetando as variáveis das coordenadas dos pontos
+				startPoint = null;
+				endPoint = null;
+			}
+		});
+	</script>
+
+</body>
+</html>
