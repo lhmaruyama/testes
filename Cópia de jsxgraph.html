@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gráfico de Linha com JSXGraph</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/1.2.0/jsxgraphcore.js"></script>
+  </head>
+  <body>
+    <h1>Gráfico de Linha com JSXGraph</h1>
+    <div id="jxgbox" class="jxgbox" style="width:400px; height:400px;"></div>
+    <script>
+      // Inicialize o JSXGraph
+      var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-5, 5, 5, -5]});
+      
+      // Defina as coordenadas dos pontos do gráfico
+      var points = [[-4, -2], [-3, 1], [-1, -3], [1, 2], [3, -1], [4, 3]];
+      
+      // Crie uma curva de linha para conectar os pontos
+      var line = board.create('curve', [points], {strokeColor:'#0000FF', strokeWidth:2});
+      
+      // Adicione rótulos aos pontos do gráfico
+      for (var i = 0; i < points.length; i++) {
+        board.create('point', points[i], {name:'P'+(i+1), strokeColor:'#FF0000', fillColor:'#FF0000'});
+      }
+    </script>
+  </body>
+</html>
