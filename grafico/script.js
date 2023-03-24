@@ -1,4 +1,4 @@
-var Chart = require("chart.js")
+
 
 function adicionarLinha() {
   // let tabela = document.getElementById("tabela");
@@ -41,32 +41,33 @@ function removerLinha() {
 
 //let tabela = document.getElementById("tabela");
 for (let i = 0; i < tabela.rows.length; i++) {
-  tabela.rows[i].cells[0].addEventListener('click', function () { 
+  tabela.rows[i].cells[0].addEventListener('click', function () {
     update()
-   })
+  })
 }
 
 //console.log(checkboxes[0].checked)
 //if(checkboxes[0].checked==true){}
 
 const update = () => {
-  let checkboxes = document.querySelectorAll("input[type=checkbox]")
   let isActive = []
+  let checkboxes = document.querySelectorAll("input[type=checkbox]")
   checkboxes.forEach(val => {
     isActive.push(val.checked)
   })
   console.log(isActive);
+  return isActive
 }
 
 const selectAll = document.querySelector("input[type=checkbox]")
 //selectAll[0].addEventListener() usado se document.querySelectorAll for definido como seletor
-selectAll.addEventListener("click",()=>{
+selectAll.addEventListener("click", () => {
   let checkboxes = document.querySelectorAll("input[type=checkbox]")
   for (var i = 1; i < checkboxes.length; i++) {
-    if(checkboxes[0].checked==true){
-      checkboxes[i].checked=true
-    }else{
-      checkboxes[i].checked=false
+    if (checkboxes[0].checked == true) {
+      checkboxes[i].checked = true
+    } else {
+      checkboxes[i].checked = false
     }
     //console.log(checkboxes[i].checked=true)
     //checkboxes[i].checked = this.checked;
@@ -74,37 +75,55 @@ selectAll.addEventListener("click",()=>{
   update()
 })
 
-
-const xData = [1, 2, 3, 4, 5];
-
-// Dados do eixo y
-const yData = [10, 20, 30, 40, 50];
-
-// Criar o contexto do canvas
-const canvas = document.getElementById('grafico');
-const ctx = canvas.getContext('2d');
-
-// Criar o gráfico de dispersão
-const scatterChart = new Chart(ctx, {
-  type: 'scatter',
-  data: {
-    datasets: [{
-      label: 'Dispersão',
-      data: xData.map((value, index) => ({x: value, y: yData[index]})),
-      backgroundColor: 'rgba(255, 99, 132, 1)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        type: 'linear',
-        position: 'bottom'
-      }]
+function grafico() {
+  const isActive = update()
+  //console.log(isActive);
+  //console.log(tabela.rows[3].cells[3].innerHTML);
+  let xData = []
+  let yData = []
+  let j = 0
+  for (let i = 1; i < tabela.rows.length; i++) {
+    if (isActive[i] == true) {
+      xData[j] = parseFloat(tabela.rows[i].cells[3].innerHTML)
+      yData[j] = parseFloat(tabela.rows[i].cells[2].innerHTML)
+      j++
     }
+    //console.log(tabela.rows[i].cells[3].innerHTML);
+
   }
-});
+  //console.log(xData);
+
+  //const xData = [1, 2, 3, 4, 5];
+
+  // Dados do eixo y
+  //const yData = [10, 20, 30, 40, 50];
+
+    // Criar o contexto do canvas
+    const canvas = document.getElementById('grafico');
+    const ctx = canvas.getContext('2d');
+    
+    // Criar o gráfico de dispersão
+    const scatterChart = new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Dispersão',
+          data: xData.map((value, index) => ({x: value, y: yData[index]})),
+          backgroundColor: 'rgba(255, 99, 132, 1)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+/*       options: {
+        scales: {
+          x: [{
+            type: 'linear',
+            position: 'bottom'
+          }]
+        }
+      } */
+    });
+}
 
 
 
