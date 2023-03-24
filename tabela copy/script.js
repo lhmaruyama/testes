@@ -1,12 +1,10 @@
 function adicionarLinha() {
   // let tabela = document.getElementById("tabela");
-  let linha = tabela.insertRow(-1);
-  let celula
   //isActive.push(false)
   //console.log(isActive);
-
+  let celula
+  let linha = tabela.insertRow(-1);
   for (let i = 0; i < tabela.rows[0].cells.length; i++) {
-
     celula = linha.insertCell(i);
     celula.contentEditable = true;
     if (i == 0) {
@@ -17,20 +15,18 @@ function adicionarLinha() {
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
     }
     if (i == 1) {
-
       celula.innerHTML = String(tabela.rows.length - 1).padStart(2, "0");
     }
     if (i <= 1) {
       celula.style.backgroundColor = "#dddddd"
     }
-
   }
   update()
 }
 
 function removerLinha() {
   //let tabela = document.getElementById("tabela");
-  let linhas = tabela.rows
+  //let linhas = tabela.rows
 
   if (tabela.rows.length > 1) {
     tabela.deleteRow(-1);
@@ -45,7 +41,6 @@ function removerLinha() {
 for (let i = 0; i < tabela.rows.length; i++) {
   tabela.rows[i].cells[0].addEventListener('click', function () { 
     update()
-
    })
 }
 
@@ -64,7 +59,6 @@ const update = () => {
 const selectAll = document.querySelector("input[type=checkbox]")
 //selectAll[0].addEventListener() usado se document.querySelectorAll for definido como seletor
 selectAll.addEventListener("click",()=>{
-  console.log("isActive")
   let checkboxes = document.querySelectorAll("input[type=checkbox]")
   for (var i = 1; i < checkboxes.length; i++) {
     if(checkboxes[0].checked==true){
@@ -75,7 +69,7 @@ selectAll.addEventListener("click",()=>{
     //console.log(checkboxes[i].checked=true)
     //checkboxes[i].checked = this.checked;
   }
-  //update()
+  update()
 })
 
 
