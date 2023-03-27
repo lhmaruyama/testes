@@ -1,3 +1,60 @@
+const AREA = [159.75, 120, 134.5, 140.25, 115, 68, 140, 107, 80, 54, 63, 58, 130, 50.6, 54, 54, 68.64, 70, 70, 100, 107.91, 110, 110, 130, 80, 50, 74, 62]
+const LOC = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3]
+const ACAB = [5, 5, 4, 4, 4, 5, 5, 4, 5, 6, 6, 5, 5, 5, 5, 6, 7, 6, 6, 6, 6, 6, 6, 5, 5, 7, 6, 6]
+const VALOR = [3755.87, 3458.33, 3494.42, 2852.05, 4000, 4705.88, 4178.57, 3037.38, 5062.5, 5370.37, 5873.02, 5344.83, 5000, 5533.6, 5703.7, 5425.93, 6993.01, 6214.29, 5214.29, 4900, 5930.87, 4909.09, 4909.09, 5000, 4875, 7500, 5135.14, 6854.84]
+//console.log(jStat.sum(AREA))
+//console.log(jStat.sum(LOC))
+//console.log(jStat.sum(ACAB))
+//console.log(jStat.sum(VALOR))
+
+const alpha = .8//nivel confiança
+const nc = 1 - alpha//
+
+const mean = jStat.mean(VALOR)//media
+const mode = Math.max(...jStat.mode(VALOR))
+const median = jStat.median(VALOR)
+const sd = jStat.stdev(VALOR, true)//desvio adrão amostral
+const tciMean = jStat.tci(mean, nc, VALOR)// limites do intervalo de confiança
+const tciMode = jStat.tci(mode, nc, VALOR)
+const tciMedian = jStat.tci(median, nc, VALOR)
+const fatortciMean = tciMean[1] - mean
+//const fatortciMode = tciMode[1] - mode
+const fatortciMedian = tciMedian[1] - median
+const amptciMean = 100 * (tciMean[1] - tciMean[0]) / mean
+//const amptciMode = 100 * (tciMode[1] - tciMode[0]) / mode
+const amptciMedian = 100 * (tciMedian[1] - tciMedian[0]) / median
+const degree = 1 //grau da regressao
+const k = 1 //qtd variaveis indep
+const corrAREA = jStat.corrcoeff(AREA, VALOR)
+const corrACAB = jStat.corrcoeff(ACAB, VALOR)
+const corrLOC = jStat.corrcoeff(LOC, VALOR)
+
+
+
+//const corr2 = corr ** 2
+//const corr2aj = 1 - (1 - corr ** 2) * (VALOR.length - 1) / (VALOR.length - k - 1)
+
+
+console.log("media: " + mean);
+console.log("moda: " + mode);
+console.log("mediana: " + median);
+console.log("desv padrao: " + sd);
+console.log("Intervalo Conf (Média): ");
+console.log(tciMean);
+console.log("Intervalo Conf (Moda): ");
+console.log(tciMode);
+console.log("Intervalo Conf (Mediana): ");
+console.log(tciMedian);
+console.log("Fator Int. Conf: " + fatortciMean);
+//console.log(fatortciMode);
+//console.log(fatortciMedian);
+console.log("Amplitude Int. Conf.: " + amptciMean);
+//console.log(amptciMode);
+//console.log(amptciMedian);
+console.log("R: " + corrLOC);
+//console.log("R²: " + corr2);
+//console.log("R² aj: " + corr2aj);
+
 
 
 function adicionarLinha() {
@@ -91,38 +148,40 @@ function grafico() {
     //console.log(tabela.rows[i].cells[3].innerHTML);
 
   }
-  //console.log(xData);
+
+  const sd = ss.standardDeviation(yData)
+  console.log(sd);
 
   //const xData = [1, 2, 3, 4, 5];
 
   // Dados do eixo y
   //const yData = [10, 20, 30, 40, 50];
 
-    // Criar o contexto do canvas
-    const canvas = document.getElementById('grafico');
-    const ctx = canvas.getContext('2d');
-    
-    // Criar o gráfico de dispersão
-    const scatterChart = new Chart(ctx, {
-      type: 'scatter',
-      data: {
-        datasets: [{
-          label: 'Dispersão',
-          data: xData.map((value, index) => ({x: value, y: yData[index]})),
-          backgroundColor: 'rgba(255, 99, 132, 1)',
-          borderColor: 'rgba(255, 99, 132, 1)',
-          borderWidth: 1
-        }]
-      },
-/*       options: {
-        scales: {
-          x: [{
-            type: 'linear',
-            position: 'bottom'
-          }]
-        }
-      } */
-    });
+  // Criar o contexto do canvas
+  const canvas = document.getElementById('grafico');
+  const ctx = canvas.getContext('2d');
+
+  // Criar o gráfico de dispersão
+  const scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'Dispersão',
+        data: xData.map((value, index) => ({ x: value, y: yData[index] })),
+        backgroundColor: 'rgba(255, 99, 132, 1)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    /*       options: {
+            scales: {
+              x: [{
+                type: 'linear',
+                position: 'bottom'
+              }]
+            }
+          } */
+  });
 }
 
 
