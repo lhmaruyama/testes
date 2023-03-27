@@ -31,6 +31,7 @@ const corrLOC = jStat.corrcoeff(LOC, VALOR)
 
 
 
+
 let correlacao = [["Correlação", "AREA", "LOC", "ACAB", "VALOR"], ["AREA", 11, 21, 31, 41], ["LOC", 12, 22, 32, 42], ["ACAB", 13, 23, 33, 43], ["VALOR", 14, 24, 34, 44]]
 
 console.table(correlacao)
@@ -228,6 +229,8 @@ function removerColuna() {
       tabela.rows[i].deleteCell(-1);
     }
   }
+  update()
+
 }
 
 
