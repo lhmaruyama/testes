@@ -31,6 +31,10 @@ const corrLOC = jStat.corrcoeff(LOC, VALOR)
 
 
 
+let correlacao = [["Correlação", "AREA", "LOC", "ACAB", "VALOR"], ["AREA", 11, 21, 31, 41], ["LOC", 12, 22, 32, 42], ["ACAB", 13, 23, 33, 43], ["VALOR", 14, 24, 34, 44]]
+
+console.table(correlacao)
+console.table(correlacao[2][4])
 //const corr2 = corr ** 2
 //const corr2aj = 1 - (1 - corr ** 2) * (VALOR.length - 1) / (VALOR.length - k - 1)
 
@@ -200,26 +204,31 @@ for (let i = 0; i < checkboxes.length; i++) {
   });
 } */
 
-/* function adicionarColuna() {
+function adicionarColuna() {
   let tabela = document.getElementById("tabela");
-  let coluna, celula;
+  let celula;
   for (let i = 0; i < tabela.rows.length; i++) {
-    coluna = tabela.rows[i].insertCell(-1);
-    coluna.contentEditable = true;
+    celula = tabela.rows[i].insertCell(-1);
+    celula.contentEditable = true;
     //celula = document.createElement("td")
     //coluna.appendChild(celula)
+    if (i == 0) {
+      celula.style.backgroundColor = "#dddddd"
+    }
   }
-} */
+  update()
+
+}
 
 
-/* function removerColuna() {
+function removerColuna() {
   let tabela = document.getElementById("tabela");
   if (tabela.rows[0].cells.length > 1) {
     for (let i = 0; i < tabela.rows.length; i++) {
       tabela.rows[i].deleteCell(-1);
     }
   }
-} */
+}
 
 
 /* 
