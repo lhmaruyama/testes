@@ -29,9 +29,6 @@ const corrAREA = jStat.corrcoeff(AREA, VALOR)
 const corrACAB = jStat.corrcoeff(ACAB, VALOR)
 const corrLOC = jStat.corrcoeff(LOC, VALOR)
 
-
-
-
 let correlacao = [["Correlação", "AREA", "LOC", "ACAB", "VALOR"], ["AREA", 11, 21, 31, 41], ["LOC", 12, 22, 32, 42], ["ACAB", 13, 23, 33, 43], ["VALOR", 14, 24, 34, 44]]
 
 console.table(correlacao)
@@ -232,6 +229,36 @@ function removerColuna() {
   update()
 
 }
+
+
+let celula
+for(let j=4; j<29;j++){
+
+  let linha = tabela.insertRow(-1);
+  for (let i = 0; i < tabela.rows[0].cells.length; i++) {
+    celula = linha.insertCell(i);
+    celula.contentEditable = true;
+    if (i == 0) {
+      const checkbox = document.createElement('input');
+      checkbox.className = 'checkbox'
+      checkbox.type = 'checkbox';
+      celula.appendChild(checkbox);
+      //celula.innerHTML = '<input class="checkbox" type="checkbox">'
+    }
+    if (i == 1) {
+      celula.innerHTML = String(tabela.rows.length - 1).padStart(2, "0");
+    }
+    if (i <= 1) {
+      celula.style.backgroundColor = "#dddddd"
+    }
+  }
+}
+update()
+
+
+
+
+
 
 
 /* 
