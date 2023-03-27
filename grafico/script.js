@@ -1,3 +1,4 @@
+const VAR = ["VALOR", "AREA", "LOC", "ACAB"]
 const AREA = [159.75, 120, 134.5, 140.25, 115, 68, 140, 107, 80, 54, 63, 58, 130, 50.6, 54, 54, 68.64, 70, 70, 100, 107.91, 110, 110, 130, 80, 50, 74, 62]
 const LOC = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3]
 const ACAB = [5, 5, 4, 4, 4, 5, 5, 4, 5, 6, 6, 5, 5, 5, 5, 6, 7, 6, 6, 6, 6, 6, 6, 5, 5, 7, 6, 6]
@@ -186,11 +187,8 @@ function grafico() {
   });
 }
 
-
-
 //let isActive = [];
 //let isActive = [false, false, false, false, false, false, false, false, false, false]
-
 
 /* let checkboxes = document.querySelectorAll("input[type=checkbox]");
 for (let i = 0; i < checkboxes.length; i++) {
@@ -232,7 +230,7 @@ function removerColuna() {
 
 
 let celula
-for(let j=4; j<29;j++){
+for (let j = 4; j < 29; j++) {
 
   let linha = tabela.insertRow(-1);
   for (let i = 0; i < tabela.rows[0].cells.length; i++) {
@@ -255,13 +253,27 @@ for(let j=4; j<29;j++){
 }
 update()
 
+for (let i = 1; i < tabela.rows.length; i++) {
+
+
+    tabela.rows[0].cells[2].innerHTML = VAR[0]
+    tabela.rows[0].cells[3].innerHTML = VAR[1]
+    tabela.rows[0].cells[4].innerHTML = VAR[2]
+    tabela.rows[0].cells[5].innerHTML = VAR[3]
+
+    tabela.rows[i].cells[2].innerHTML = VALOR[i-1]
+    tabela.rows[i].cells[3].innerHTML = AREA[i-1]
+    tabela.rows[i].cells[4].innerHTML = LOC[i-1]
+    tabela.rows[i].cells[5].innerHTML = ACAB[i-1]
+  
+
+}
 
 
 
 
 
-
-/* 
+/*
 window.onload = function() {
   var tabela = document.getElementById("tabela");
   var celulas = tabela.getElementsByTagName("td");
@@ -272,8 +284,8 @@ window.onload = function() {
   }
 }; */
 
-/* let selected = [false, false, false, false, false, false, false, false, false, false]
-for (let i = 0; i < tabela.rows.length; i++) {
+//let selected = [false, false, false, false, false, false, false, false, false, false]
+/* for (let i = 0; i < tabela.rows.length; i++) {
   for (let j = 0; j < tabela.rows[i].cells.length; j++) {
     //tabela.rows[i].cells[j].addEventListener('click', function() {
     // console.log(`Linha ${i+1}, Coluna ${j+1}`);
