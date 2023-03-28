@@ -15,7 +15,7 @@ const VALUES = [VALOR, AREA, LOC, ACAB]
 let celula
 //let linha
 //let coluna
-for (let i = tabela.rows.length; i < VALOR.length+2; i++) {
+for (let i = tabela.rows.length; i < VALOR.length + 2; i++) {
 
   let linha = tabela.insertRow();
   //celula = linha.insertCell();
@@ -29,7 +29,7 @@ for (let i = tabela.rows.length; i < VALOR.length+2; i++) {
     }
     if (j == 1) {
       const checkbox = document.createElement('input');
-      checkbox.className = 'checkbox'
+      checkbox.className = 'checkboxL'
       checkbox.type = 'checkbox';
       celula.appendChild(checkbox);
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
@@ -40,40 +40,62 @@ for (let i = tabela.rows.length; i < VALOR.length+2; i++) {
     //celula = tabela.rows[i].insertCell(-1);
     //celula.contentEditable = true;
   }
+
+}
+
+for (let i = 0; i < VALOR.length + 2; i++) {
+  for (let j = 0; j < VAR.length - 2; j++) {
+    celula = tabela.rows[i].insertCell(-1);
+    celula.contentEditable = true;
+
+    if (i == 1) {
+      const checkbox = document.createElement('input');
+      checkbox.className = 'checkboxC'
+      checkbox.type = 'checkbox';
+      celula.appendChild(checkbox);
+      celula.contentEditable = false;
+
+    }
+    if (i < 2) {
+      celula.style.backgroundColor = "#dddddd"
+    }
+  }
 }
 
 //preenche os dados na tabela
-/* for (let i = 1; i < tabela.rows.length; i++) {
+for (let i = 2; i < tabela.rows.length; i++) {
 
   tabela.rows[0].cells[2].innerHTML = VAR[0]
   tabela.rows[0].cells[3].innerHTML = VAR[1]
   tabela.rows[0].cells[4].innerHTML = VAR[2]
   tabela.rows[0].cells[5].innerHTML = VAR[3]
 
-  tabela.rows[i].cells[2].innerHTML = VALOR[i - 1]
-  tabela.rows[i].cells[3].innerHTML = AREA[i - 1]
-  tabela.rows[i].cells[4].innerHTML = LOC[i - 1]
-  tabela.rows[i].cells[5].innerHTML = ACAB[i - 1]
+  tabela.rows[i].cells[2].innerHTML = VALOR[i - 2]
+  tabela.rows[i].cells[3].innerHTML = AREA[i - 2]
+  tabela.rows[i].cells[4].innerHTML = LOC[i - 2]
+  tabela.rows[i].cells[5].innerHTML = ACAB[i - 2]
 
-} */
+}
 
 
 // carrega os dados
 let DATA = []
-/* let checkboxes = document.querySelectorAll("input[type=checkbox]")
+let checkboxes = document.querySelectorAll("input[type=checkbox]")
+// tabela completa
 for (let i = 0; i < tabela.rows[0].cells.length; i++) {
   DATA[i] = []
   for (let j = 0; j < tabela.rows.length; j++) {
     //DATA[i][j]=`${i}${j}`
-    if (i == 0) {
+    if (i == 1 || (j == 1 && i > 0)) {
       DATA[i][j] = checkboxes[j].checked
     } else {
       DATA[i][j] = tabela.rows[j].cells[i].innerHTML
     }
   }
-} */
+}
+
 //console.table(DATA)
-//console.log(DATA)
+console.log(DATA)
 
 //
 
@@ -174,7 +196,7 @@ function adicionarLinha() {
     celula.contentEditable = true;
     if (i == 0) {
       const checkbox = document.createElement('input');
-      checkbox.className = 'checkbox'
+      checkbox.className = 'checkboxL'
       checkbox.type = 'checkbox';
       celula.appendChild(checkbox);
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
@@ -193,7 +215,7 @@ function removerLinha() {
   //let tabela = document.getElementById("tabela");
   //let linhas = tabela.rows
 
-  if (tabela.rows.length > 1) {
+  if (tabela.rows.length > 4) {
     tabela.deleteRow(-1);
   }
   //tabela.ariaRowIndex()
@@ -226,7 +248,7 @@ const selectAll = document.querySelector("input[type=checkbox]")
 //selectAll[0].addEventListener() usado se document.querySelectorAll for definido como seletor
 selectAll.addEventListener("click", () => {
   let checkboxes = document.querySelectorAll("input[type=checkbox]")
-  for (var i = 1; i < checkboxes.length; i++) {
+  for (let i = 1; i < checkboxes.length; i++) {
     if (checkboxes[0].checked == true) {
       checkboxes[i].checked = true
     } else {
@@ -308,6 +330,14 @@ function adicionarColuna() {
     celula.contentEditable = true;
     //celula = document.createElement("td")
     //coluna.appendChild(celula)
+    if (i == 1) {
+      const checkbox = document.createElement('input');
+      checkbox.className = 'checkboxC'
+      checkbox.type = 'checkbox';
+      celula.appendChild(checkbox);
+      celula.contentEditable = false;
+
+    }
     if (i < 2) {
       celula.style.backgroundColor = "#dddddd"
     }
@@ -317,8 +347,8 @@ function adicionarColuna() {
 }
 
 function removerColuna() {
-  let tabela = document.getElementById("tabela");
-  if (tabela.rows[0].cells.length > 1) {
+  //let tabela = document.getElementById("tabela");
+  if (tabela.rows[0].cells.length > 4) {
     for (let i = 0; i < tabela.rows.length; i++) {
       tabela.rows[i].deleteCell(-1);
     }
