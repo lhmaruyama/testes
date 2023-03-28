@@ -8,49 +8,46 @@
 <body>
 	<div id="container">
 		<table id="tabela">
-			<thead>
+			<!-- <thead> -->
+			<!-- </thead> -->
+			<!-- <tbody> -->
+			<!-- </tbody> -->
 				<tr>
-					<th><input class="checkbox" type="checkbox"></th>
-					<th>Dados</th>
-					<th contenteditable></th>
-					<th contenteditable></th>
-					<th contenteditable></th>
-					<th contenteditable></th>
+					<th></th>
+					<th></th>
+					<th contenteditable>Var_Y</th>
+					<th contenteditable>Var_X</th>
 				</tr>
-			</thead>
-			<tbody>
 				<tr>
-					<th><input class="checkbox" type="checkbox"></th>
+					<th></th>
+					<th><input class="checkboxC" type="checkbox"></th>
+					<th><input class="checkboxC" type="checkbox"></th>
+					<th><input class="checkboxC" type="checkbox"></th>
+				</tr>
+				<tr>
 					<th>01</th>
-					<td contenteditable></td>
-					<td contenteditable></td>
+					<th><input class="checkboxL" type="checkbox"></th>
 					<td contenteditable></td>
 					<td contenteditable></td>
 				</tr>
 				<tr>
-					<th><input class="checkbox" type="checkbox"></th>
 					<th>02</th>
-					<td contenteditable></td>
-					<td contenteditable></td>
+					<th><input class="checkboxL" type="checkbox"></th>
 					<td contenteditable></td>
 					<td contenteditable></td>
 				</tr>
 				<tr>
-					<th><input class="checkbox" type="checkbox"></th>
 					<th>03</th>
-					<td contenteditable></td>
-					<td contenteditable></td>
+					<th><input class="checkboxL" type="checkbox"></th>
 					<td contenteditable></td>
 					<td contenteditable></td>
 				</tr>
-			</tbody>
 		</table>
 		<button onclick="adicionarLinha()">Adicionar Linha</button>
 		<button onclick="adicionarColuna()">Adicionar Coluna</button>
 		<button onclick="removerLinha()">Remover Linha</button>
 		<button onclick="grafico()">Gráfico</button>
 		<button onclick="removerColuna()">Remover Coluna</button>
-
 		
 	</div>
 	<canvas id="grafico"></canvas>

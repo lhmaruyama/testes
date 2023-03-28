@@ -1,14 +1,83 @@
+//array de testes
 const VAR = ["VALOR", "AREA", "LOC", "ACAB"]
 const AREA = [159.75, 120, 134.5, 140.25, 115, 68, 140, 107, 80, 54, 63, 58, 130, 50.6, 54, 54, 68.64, 70, 70, 100, 107.91, 110, 110, 130, 80, 50, 74, 62]
 const LOC = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3]
 const ACAB = [5, 5, 4, 4, 4, 5, 5, 4, 5, 6, 6, 5, 5, 5, 5, 6, 7, 6, 6, 6, 6, 6, 6, 5, 5, 7, 6, 6]
 const VALOR = [3755.87, 3458.33, 3494.42, 2852.05, 4000, 4705.88, 4178.57, 3037.38, 5062.5, 5370.37, 5873.02, 5344.83, 5000, 5533.6, 5703.7, 5425.93, 6993.01, 6214.29, 5214.29, 4900, 5930.87, 4909.09, 4909.09, 5000, 4875, 7500, 5135.14, 6854.84]
-const VALUES = [VALOR,AREA,LOC,ACAB]
+const VALUES = [VALOR, AREA, LOC, ACAB]
 //console.log(jStat.sum(AREA))
 //console.log(jStat.sum(LOC))
 //console.log(jStat.sum(ACAB))
 //console.log(jStat.sum(VALOR))
 
+
+//adiciona linhas e colunas à tabela de forma automatica para receber dados de teste
+let celula
+//let linha
+//let coluna
+for (let i = tabela.rows.length; i < VALOR.length+2; i++) {
+
+  let linha = tabela.insertRow();
+  //celula = linha.insertCell();
+  //celula.contentEditable = true;
+  //linha = tabela.insertRow(-1);
+  for (let j = 0; j < VAR.length; j++) {
+    celula = linha.insertCell();
+    celula.contentEditable = true;
+    if (j == 0) {
+      celula.innerHTML = String(tabela.rows.length - 2).padStart(2, "0");
+    }
+    if (j == 1) {
+      const checkbox = document.createElement('input');
+      checkbox.className = 'checkbox'
+      checkbox.type = 'checkbox';
+      celula.appendChild(checkbox);
+      //celula.innerHTML = '<input class="checkbox" type="checkbox">'
+    }
+    if (j <= 1) {
+      celula.style.backgroundColor = "#dddddd"
+    }
+    //celula = tabela.rows[i].insertCell(-1);
+    //celula.contentEditable = true;
+  }
+}
+
+//preenche os dados na tabela
+/* for (let i = 1; i < tabela.rows.length; i++) {
+
+  tabela.rows[0].cells[2].innerHTML = VAR[0]
+  tabela.rows[0].cells[3].innerHTML = VAR[1]
+  tabela.rows[0].cells[4].innerHTML = VAR[2]
+  tabela.rows[0].cells[5].innerHTML = VAR[3]
+
+  tabela.rows[i].cells[2].innerHTML = VALOR[i - 1]
+  tabela.rows[i].cells[3].innerHTML = AREA[i - 1]
+  tabela.rows[i].cells[4].innerHTML = LOC[i - 1]
+  tabela.rows[i].cells[5].innerHTML = ACAB[i - 1]
+
+} */
+
+
+// carrega os dados
+let DATA = []
+/* let checkboxes = document.querySelectorAll("input[type=checkbox]")
+for (let i = 0; i < tabela.rows[0].cells.length; i++) {
+  DATA[i] = []
+  for (let j = 0; j < tabela.rows.length; j++) {
+    //DATA[i][j]=`${i}${j}`
+    if (i == 0) {
+      DATA[i][j] = checkboxes[j].checked
+    } else {
+      DATA[i][j] = tabela.rows[j].cells[i].innerHTML
+    }
+  }
+} */
+//console.table(DATA)
+//console.log(DATA)
+
+//
+
+//console.log(tabela.rows[0].cells.length)
 const alpha = .8//nivel confiança
 const nc = 1 - alpha//
 
@@ -58,6 +127,41 @@ console.log("R: " + corrLOC);
 //console.log("R² aj: " + corr2aj);
 
 
+//calcula R (correlação)
+let correlacao = []
+for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
+  correlacao[i] = [] //cria array dentro de array
+
+  for (let j = 0; j < tabela.rows[0].cells.length - 1; j++) {
+    //correlacao[i][j] = `${i}${j}`
+
+    if (i == 0 && j == 0) {
+      correlacao[i][j] = "Correlação"
+    }
+    if (i == 0 && j > 0) {
+      correlacao[i][j] = VAR[j - 1]
+    }
+    if (i > 0 && j == 0) {
+      correlacao[i][j] = VAR[i - 1]
+    }
+    if (i < j && i != 0) {
+      correlacao[i][j] = 0
+    }
+    if (i > j && j != 0) {
+      correlacao[i][j] = jStat.corrcoeff(VALUES[i - 1], VALUES[j - 1])
+    }
+    if (i == j && i != 0) {
+      correlacao[i][j] = 1
+    }
+  }
+  //correlacao.push(linha)
+}
+//let tabcorrVAR = ["Correlação"]
+//tabcorrVAR = tabcorrVAR.concat(VAR)
+//console.log(tabcorrVAR)
+//let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
+
+console.table(correlacao)
 
 function adicionarLinha() {
   // let tabela = document.getElementById("tabela");
@@ -186,9 +290,6 @@ function grafico() {
   });
 }
 
-//let isActive = [];
-//let isActive = [false, false, false, false, false, false, false, false, false, false]
-
 /* let checkboxes = document.querySelectorAll("input[type=checkbox]");
 for (let i = 0; i < checkboxes.length; i++) {
   checkboxes[i].addEventListener("click", function () {
@@ -200,21 +301,20 @@ for (let i = 0; i < checkboxes.length; i++) {
 } */
 
 function adicionarColuna() {
-  let tabela = document.getElementById("tabela");
-  let celula;
+  //let tabela = document.getElementById("tabela");
+  //let celula;
   for (let i = 0; i < tabela.rows.length; i++) {
     celula = tabela.rows[i].insertCell(-1);
     celula.contentEditable = true;
     //celula = document.createElement("td")
     //coluna.appendChild(celula)
-    if (i == 0) {
+    if (i < 2) {
       celula.style.backgroundColor = "#dddddd"
     }
   }
   update()
 
 }
-
 
 function removerColuna() {
   let tabela = document.getElementById("tabela");
@@ -226,93 +326,6 @@ function removerColuna() {
   update()
 
 }
-
-
-let celula
-for (let j = 4; j < 29; j++) {
-
-  let linha = tabela.insertRow(-1);
-  for (let i = 0; i < tabela.rows[0].cells.length; i++) {
-    celula = linha.insertCell(i);
-    celula.contentEditable = true;
-    if (i == 0) {
-      const checkbox = document.createElement('input');
-      checkbox.className = 'checkbox'
-      checkbox.type = 'checkbox';
-      celula.appendChild(checkbox);
-      //celula.innerHTML = '<input class="checkbox" type="checkbox">'
-    }
-    if (i == 1) {
-      celula.innerHTML = String(tabela.rows.length - 1).padStart(2, "0");
-    }
-    if (i <= 1) {
-      celula.style.backgroundColor = "#dddddd"
-    }
-  }
-}
-//update()
-
-for (let i = 1; i < tabela.rows.length; i++) {
-
-
-  tabela.rows[0].cells[2].innerHTML = VAR[0]
-  tabela.rows[0].cells[3].innerHTML = VAR[1]
-  tabela.rows[0].cells[4].innerHTML = VAR[2]
-  tabela.rows[0].cells[5].innerHTML = VAR[3]
-
-  tabela.rows[i].cells[2].innerHTML = VALOR[i - 1]
-  tabela.rows[i].cells[3].innerHTML = AREA[i - 1]
-  tabela.rows[i].cells[4].innerHTML = LOC[i - 1]
-  tabela.rows[i].cells[5].innerHTML = ACAB[i - 1]
-
-
-}
-let correlacao = []
-for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
-  correlacao[i] = [] //cria array dentro de array
-
-  for (let j = 0; j < tabela.rows[0].cells.length - 1; j++) {
-    correlacao[i][j] = `${i}${j}`
-    //correlacao[0][j]=VAR[j]
-    //correlacao[i][3]=VAR[i]
-
-    if (i == 0 && j == 0) {
-      correlacao[i][j] = "Correlação"
-    }
-    if (i == 0 && j > 0) {
-      correlacao[i][j] = VAR[j - 1]
-    }
-    if (i > 0 && j == 0) {
-      correlacao[i][j] = VAR[i - 1]
-    }
-    if (i < j && i != 0) {
-      correlacao[i][j] = 0
-    }
-    if (i > j && j != 0) {
-      correlacao[i][j] = jStat.corrcoeff(VALUES[i-1],VALUES[j-1])
-    }
-    if (i == j && i != 0) {
-      correlacao[i][j] = 1
-    }
-
-    //correlacao[i][0]=tabela.rows[0].cells[j].innerHTML
-    //correlacao[0][j]=tabela.rows[0].cells[j].innerHTML
-    //linha.push(tabela.rows[i].cells[j].innerHTML)
-
-
-  }
-
-  //correlacao.push(linha)
-}
-//let tabcorrVAR = ["Correlação"]
-//tabcorrVAR = tabcorrVAR.concat(VAR)
-//console.log(tabcorrVAR)
-//let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
-
-console.table(correlacao)
-
-
-
 
 /*
 window.onload = function() {
