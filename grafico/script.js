@@ -3,6 +3,7 @@ const AREA = [159.75, 120, 134.5, 140.25, 115, 68, 140, 107, 80, 54, 63, 58, 130
 const LOC = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3]
 const ACAB = [5, 5, 4, 4, 4, 5, 5, 4, 5, 6, 6, 5, 5, 5, 5, 6, 7, 6, 6, 6, 6, 6, 6, 5, 5, 7, 6, 6]
 const VALOR = [3755.87, 3458.33, 3494.42, 2852.05, 4000, 4705.88, 4178.57, 3037.38, 5062.5, 5370.37, 5873.02, 5344.83, 5000, 5533.6, 5703.7, 5425.93, 6993.01, 6214.29, 5214.29, 4900, 5930.87, 4909.09, 4909.09, 5000, 4875, 7500, 5135.14, 6854.84]
+const VALUES = [VALOR,AREA,LOC,ACAB]
 //console.log(jStat.sum(AREA))
 //console.log(jStat.sum(LOC))
 //console.log(jStat.sum(ACAB))
@@ -30,10 +31,8 @@ const corrAREA = jStat.corrcoeff(AREA, VALOR)
 const corrACAB = jStat.corrcoeff(ACAB, VALOR)
 const corrLOC = jStat.corrcoeff(LOC, VALOR)
 
-let correlacao = [["Correlação", "AREA", "LOC", "ACAB", "VALOR"], ["AREA", 11, 21, 31, 41], ["LOC", 12, 22, 32, 42], ["ACAB", 13, 23, 33, 43], ["VALOR", 14, 24, 34, 44]]
 
-console.table(correlacao)
-console.table(correlacao[2][4])
+//console.table(correlacao[2][4])
 //const corr2 = corr ** 2
 //const corr2aj = 1 - (1 - corr ** 2) * (VALOR.length - 1) / (VALOR.length - k - 1)
 
@@ -251,24 +250,66 @@ for (let j = 4; j < 29; j++) {
     }
   }
 }
-update()
+//update()
 
 for (let i = 1; i < tabela.rows.length; i++) {
 
 
-    tabela.rows[0].cells[2].innerHTML = VAR[0]
-    tabela.rows[0].cells[3].innerHTML = VAR[1]
-    tabela.rows[0].cells[4].innerHTML = VAR[2]
-    tabela.rows[0].cells[5].innerHTML = VAR[3]
+  tabela.rows[0].cells[2].innerHTML = VAR[0]
+  tabela.rows[0].cells[3].innerHTML = VAR[1]
+  tabela.rows[0].cells[4].innerHTML = VAR[2]
+  tabela.rows[0].cells[5].innerHTML = VAR[3]
 
-    tabela.rows[i].cells[2].innerHTML = VALOR[i-1]
-    tabela.rows[i].cells[3].innerHTML = AREA[i-1]
-    tabela.rows[i].cells[4].innerHTML = LOC[i-1]
-    tabela.rows[i].cells[5].innerHTML = ACAB[i-1]
-  
+  tabela.rows[i].cells[2].innerHTML = VALOR[i - 1]
+  tabela.rows[i].cells[3].innerHTML = AREA[i - 1]
+  tabela.rows[i].cells[4].innerHTML = LOC[i - 1]
+  tabela.rows[i].cells[5].innerHTML = ACAB[i - 1]
+
 
 }
+let correlacao = []
+for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
+  correlacao[i] = [] //cria array dentro de array
 
+  for (let j = 0; j < tabela.rows[0].cells.length - 1; j++) {
+    correlacao[i][j] = `${i}${j}`
+    //correlacao[0][j]=VAR[j]
+    //correlacao[i][3]=VAR[i]
+
+    if (i == 0 && j == 0) {
+      correlacao[i][j] = "Correlação"
+    }
+    if (i == 0 && j > 0) {
+      correlacao[i][j] = VAR[j - 1]
+    }
+    if (i > 0 && j == 0) {
+      correlacao[i][j] = VAR[i - 1]
+    }
+    if (i < j && i != 0) {
+      correlacao[i][j] = 0
+    }
+    if (i > j && j != 0) {
+      correlacao[i][j] = jStat.corrcoeff(VALUES[i-1],VALUES[j-1])
+    }
+    if (i == j && i != 0) {
+      correlacao[i][j] = 1
+    }
+
+    //correlacao[i][0]=tabela.rows[0].cells[j].innerHTML
+    //correlacao[0][j]=tabela.rows[0].cells[j].innerHTML
+    //linha.push(tabela.rows[i].cells[j].innerHTML)
+
+
+  }
+
+  //correlacao.push(linha)
+}
+//let tabcorrVAR = ["Correlação"]
+//tabcorrVAR = tabcorrVAR.concat(VAR)
+//console.log(tabcorrVAR)
+//let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
+
+console.table(correlacao)
 
 
 
