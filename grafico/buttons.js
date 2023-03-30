@@ -73,7 +73,7 @@ selectAll.addEventListener("click", () => {
   }
   data()
   //update()
-  //infoSet()
+  infoSet()
 })
 
 
@@ -92,10 +92,10 @@ for (let i = 1; i < selectOne.length; i++) {
       selectOne[0].checked = false
     } 
     //update()
-    //infoSet()
     //dataCheck()
     //let n = selectOne.length
     data()
+    infoSet()
     //console.log(DATA);
 
 

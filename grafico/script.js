@@ -11,24 +11,33 @@ const infoSet = ()=>{
   }) */
   
   info[1][1] = DATA.length - 2
+  info[3][1] = DATA[0].length - 2
   
   if (DATA[1][1] == true) {
     info[2][1] = DATA.length - 2
-    info[3][1] = DATA[0].length - 2
     info[4][1] = DATA[0].length - 2
   } else {
     let cont = 0
-    for (let i = 2; i = DATA.length; i++) {
+    for (let i = 2; i < DATA.length; i++) {
       if (DATA[i][1] == true) {
         cont++
       }
     }
     info[2][1] = cont
+    cont = 0
+    for(let i = 2; i < DATA[1].length; i++){
+      if (DATA[1][i] == true) {
+        cont++
+      }
+    }
+    info[4][1] = cont
+
     //let n = DATA.map((value, index)=>{})
   }
  
   console.table(info)
 }
+infoSet()
 //console.log(tabela.rows[1].cells[1].innerHTML.checked)
 /*
 const alpha = .8//nivel confiança
