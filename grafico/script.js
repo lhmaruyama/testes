@@ -2,26 +2,33 @@
 //INFORMAÇÕES COMPLEMENTARES
 //let tabInfo = []
 //let info = ["Variáveis e Dados do Modelo", "Total de variáveis","Variáveis utilizadas no modelo","Total de dados","Dados utilizados no modelo"]
-let DATA = data()
-let info = [["Variáveis e Dados do Modelo", "Total"], ["Total de variáveis", ""], ["Variáveis utilizadas no modelo", ""], ["Total de dados", ""], ["Dados utilizados no modelo", ""]]
-/* tabInfo = info.map((value, index)=>{
-  //tabInfo[index]=[]
-  //console.log(index)
-}) */
-
-info[1][1] = DATA.length - 2
-
-if (DATA[1][1] == true) {
-  info[2][1] = DATA.length - 2
-  info[3][1] = DATA[0].length - 2
-  info[4][1] = DATA[0].length - 2
-} else {
-  //info[2][1] = 100
-  //let n = DATA.map((value, index)=>{})
+const infoSet = ()=>{
+  let DATA = data()
+  let info = [["Variáveis e Dados do Modelo", "Total"], ["Total de variáveis", ""], ["Variáveis utilizadas no modelo", ""], ["Total de dados", ""], ["Dados utilizados no modelo", ""]]
+  /* tabInfo = info.map((value, index)=>{
+    //tabInfo[index]=[]
+    //console.log(index)
+  }) */
+  
+  info[1][1] = DATA.length - 2
+  
+  if (DATA[1][1] == true) {
+    info[2][1] = DATA.length - 2
+    info[3][1] = DATA[0].length - 2
+    info[4][1] = DATA[0].length - 2
+  } else {
+    let cont = 0
+    for (let i = 2; i = DATA.length; i++) {
+      if (DATA[i][1] == true) {
+        cont++
+      }
+    }
+    info[2][1] = cont
+    //let n = DATA.map((value, index)=>{})
+  }
+ 
+  console.table(info)
 }
-
-
-console.table(info)
 //console.log(tabela.rows[1].cells[1].innerHTML.checked)
 /*
 const alpha = .8//nivel confiança

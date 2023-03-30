@@ -53,18 +53,8 @@ for (let i = 0; i < tabela.rows.length; i++) {
 
 const update = () => {
   let isActive = []
-  let checkboxes = document.querySelectorAll("input[type=checkbox]")
-  checkboxes.forEach(val => {
-    isActive.push(val.checked)
-  })
-  const allTrue = isActive.slice(1).every(value => value === true)
-  if (allTrue == true) {
-    checkboxes[0].checked = true
-  } else {
-    checkboxes[0].checked = false
-  }
   //console.log(isActive);
-  console.log(allTrue);
+  //console.log(allTrue);
   return isActive
 }
 
@@ -81,7 +71,9 @@ selectAll.addEventListener("click", () => {
     }
     //checkboxes[i].checked = this.checked;
   }
+  data()
   //update()
+  //infoSet()
 })
 
 
@@ -89,15 +81,27 @@ let selectOne = document.querySelectorAll("input[type=checkbox]");
 for (let i = 1; i < selectOne.length; i++) {
   //let n[i] = selectOne[i].checked
   selectOne[i].addEventListener("click", function () {
-    update()
-
+    let isActive = []
+    selectOne.forEach(value => {
+      isActive.push(value.checked)
+    })
+    const allTrue = isActive.slice(1).every(value => value === true)
+    if (allTrue == true) {
+      selectOne[0].checked = true
+    } else {
+      selectOne[0].checked = false
+    } 
+    //update()
+    //infoSet()
+    //dataCheck()
     //let n = selectOne.length
-    //console.log(n);
+    data()
+    //console.log(DATA);
 
 
 
 
-    //console.log(allTrue);
+    //console.log(selectOne[i].checked);
     //isActive[i] = checkboxes[i].checked;
     //console.log(checkboxes.forEach(isActive=>{console.log(isActive)}));
   });
