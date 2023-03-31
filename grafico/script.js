@@ -90,7 +90,7 @@ console.log("R: " + corrLOC);
  */
 
 //calcula R (correlação)
-/* let correlacao = []
+let correlacao = []
 for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
   correlacao[i] = [] //cria array dentro de array
 
@@ -117,10 +117,10 @@ for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
     }
   }
   //correlacao.push(linha)
-} */
+}
 //let tabcorrVAR = ["Correlação"]
 //tabcorrVAR = tabcorrVAR.concat(VAR)
 //console.log(tabcorrVAR)
 //let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
 
-//console.table(correlacao)
+console.table(correlacao)
