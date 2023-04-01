@@ -41,19 +41,26 @@ const data = () => {
   let y
   for (let i = 2; i < tabela.rows[0].cells.length; i++) {
     let variavel = tabela.rows[1].cells[i].querySelector("input[type=checkbox]")
+    let linha = []
     if (variavel.checked == true) {
-      x++
-      y=0
-      DATA[x] = []
+      //x++
+      //y=0
+      //DATA[x] = []
+
     }
     for (let j = 2; j < tabela.rows.length; j++) {
       let amostra = tabela.rows[j].cells[1].querySelector("input[type=checkbox]")
       if (amostra.checked == true && variavel.checked == true) {
-        DATA[x][y] = tabela.rows[j].cells[i].innerHTML
-        y++
+        //DATA[x][y] = tabela.rows[j].cells[i].innerHTML
+        //y++
+        linha.push(tabela.rows[j].cells[i].innerHTML)
       }
-      
     }
+    if (linha.length > 0) {
+      DATA.push(linha)
+    }
+    //console.log(linha)
+
   }
 
   //console.table(DATA)
@@ -74,7 +81,5 @@ const dataCheck = () => {
     console.log(checkboxesC[i].checked)
 
   }
-
-
 
 }

@@ -148,4 +148,4 @@ const regressao = () => {
   }
   console.log(XT)
 }
-regressao()
+//regressao()
