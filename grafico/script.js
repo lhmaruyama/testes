@@ -2,17 +2,17 @@
 //INFORMAÇÕES COMPLEMENTARES
 //let tabInfo = []
 //let info = ["Variáveis e Dados do Modelo", "Total de variáveis","Variáveis utilizadas no modelo","Total de dados","Dados utilizados no modelo"]
-const infoSet = ()=>{
+const infoSet = () => {
   let DATA = table()
   let info = [["Variáveis e Dados do Modelo", "Total"], ["Total de variáveis", ""], ["Variáveis utilizadas no modelo", ""], ["Total de dados", ""], ["Dados utilizados no modelo", ""]]
   /* tabInfo = info.map((value, index)=>{
     //tabInfo[index]=[]
     //console.log(index)
   }) */
-  
+
   info[1][1] = DATA.length - 2
   info[3][1] = DATA[0].length - 2
-  
+
   if (DATA[1][1] == true) {
     info[2][1] = DATA.length - 2
     info[4][1] = DATA[0].length - 2
@@ -25,7 +25,7 @@ const infoSet = ()=>{
     }
     info[2][1] = cont
     cont = 0
-    for(let i = 2; i < DATA[1].length; i++){
+    for (let i = 2; i < DATA[1].length; i++) {
       if (DATA[1][i] == true) {
         cont++
       }
@@ -34,9 +34,11 @@ const infoSet = ()=>{
 
     //let n = DATA.map((value, index)=>{})
   }
- 
+
   console.table(info)
 }
+
+
 //infoSet()
 //console.log(tabela.rows[1].cells[1].innerHTML.checked)
 /*
@@ -128,10 +130,22 @@ for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
 
 //REGRESSÃO LINEAR MULTIPLA
 
-const regressao = ()=>{
+const regressao = () => {
   let DATA = data()
-/*   for(){
+  let ataque = [5, 13, 20, 28, 41, 49, 61, 62]
+  let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
+  let indice = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+  let fill = Array(ataque.length).fill(1)
+  let X = [ fill,ataque,duracao]
 
-  } */
-
+  let XT = [];
+  for (let j = 0; j < X[0].length; j++) {
+    let linha = [];
+    for (let i = 0; i < X.length; i++) {
+      linha.push(X[i][j]);
+    }
+    XT.push(linha);
+  }
+  console.log(XT)
 }
+regressao()
