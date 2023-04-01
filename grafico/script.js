@@ -3,7 +3,7 @@
 //let tabInfo = []
 //let info = ["Variáveis e Dados do Modelo", "Total de variáveis","Variáveis utilizadas no modelo","Total de dados","Dados utilizados no modelo"]
 const infoSet = ()=>{
-  let DATA = data()
+  let DATA = table()
   let info = [["Variáveis e Dados do Modelo", "Total"], ["Total de variáveis", ""], ["Variáveis utilizadas no modelo", ""], ["Total de dados", ""], ["Dados utilizados no modelo", ""]]
   /* tabInfo = info.map((value, index)=>{
     //tabInfo[index]=[]
@@ -37,7 +37,7 @@ const infoSet = ()=>{
  
   console.table(info)
 }
-infoSet()
+//infoSet()
 //console.log(tabela.rows[1].cells[1].innerHTML.checked)
 /*
 const alpha = .8//nivel confiança
@@ -123,4 +123,15 @@ for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
 //console.log(tabcorrVAR)
 //let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
 
-console.table(correlacao)
+//console.table(correlacao)
+
+
+//REGRESSÃO LINEAR MULTIPLA
+
+const regressao = ()=>{
+  let DATA = data()
+/*   for(){
+
+  } */
+
+}
