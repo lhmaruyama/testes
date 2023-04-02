@@ -164,7 +164,76 @@ const regressao = () => {
 
   console.log("XTX")
   console.log(XTX)
+  matriz = XTX
+ 
 
+  //function matrizInversa(matriz) {
+    if (XTX.length !== XTX[0].length) {
+      throw new Error('A matriz deve ser quadrada');
+    }
+    var det = determinante(XTX);
+    if (det === 0) {
+      throw new Error('A matriz não tem inversa');
+    }
+    var adjunta = matrizAdjunta(XTX);
+    var inversa = [];
+    for (var i = 0; i < XTX.length; i++) {
+      inversa[i] = [];
+      for (var j = 0; j < XTX.length; j++) {
+        inversa[i][j] = adjunta[i][j] / det;
+      }
+    }
+    //return inversa;
+  //}
+  //matrizInversa()
 
+  console.log("Inversa")
+  console.log(inversa)
+  
 }
 regressao()
+
+function determinante(matriz) {
+  if (matriz.length === 1) {
+    return matriz[0][0];
+  }
+  var det = 0;
+  for (var i = 0; i < matriz.length; i++) {
+    var sinal = (i % 2 === 0) ? 1 : -1;
+    var submatriz = [];
+    for (var j = 1; j < matriz.length; j++) {
+      submatriz[j - 1] = matriz[j].slice(0, i).concat(matriz[j].slice(i + 1));
+    }
+    det += sinal * matriz[0][i] * determinante(submatriz);
+  }
+  return det;
+}
+
+function matrizAdjunta(matriz) {
+  var adjunta = [];
+  for (var i = 0; i < matriz.length; i++) {
+    adjunta[i] = [];
+    for (var j = 0; j < matriz.length; j++) {
+      var sinal = ((i + j) % 2 === 0) ? 1 : -1;
+      var submatriz = [];
+      for (var k = 0; k < matriz.length; k++) {
+        if (k !== i) {
+          submatriz.push(matriz[k].slice(0, j).concat(matriz[k].slice(j + 1)));
+        }
+      }
+      adjunta[i][j] = sinal * determinante(submatriz);
+    }
+  }
+  return transposta(adjunta);
+}
+
+function transposta(matriz) {
+  var transposta = [];
+  for (var i = 0; i < matriz.length; i++) {
+    transposta[i] = [];
+    for (var j = 0; j < matriz.length; j++) {
+      transposta[i][j] = matriz[j][i];
+    }
+  }
+  return transposta;
+}
