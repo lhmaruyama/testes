@@ -136,16 +136,35 @@ const regressao = () => {
   let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
   let indice = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
   let fill = Array(ataque.length).fill(1)
-  let X = [ fill,ataque,duracao]
-
-  let XT = [];
-  for (let j = 0; j < X[0].length; j++) {
-    let linha = [];
-    for (let i = 0; i < X.length; i++) {
-      linha.push(X[i][j]);
-    }
-    XT.push(linha);
-  }
+  let XT = [fill, ataque, duracao]
+  console.log("XT")
   console.log(XT)
+
+  let X = [];
+  for (let j = 0; j < XT[0].length; j++) {
+    let linha = [];
+    for (let i = 0; i < XT.length; i++) {
+      linha.push(XT[i][j]);
+    }
+    X.push(linha);
+  }
+  console.log("X")
+  console.log(X)
+
+  let XTX = [];
+  for (let i = 0; i < XT.length; i++) {
+    XTX[i] = [];
+    for (let j = 0; j < X[0].length; j++) {
+      XTX[i][j]=0;
+      for (let k = 0; k < X.length; k++) {
+        XTX[i][j] += XT[i][k] * X[k][j];
+      }
+    }
+  }
+
+  console.log("XTX")
+  console.log(XTX)
+
+
 }
-//regressao()
+regressao()

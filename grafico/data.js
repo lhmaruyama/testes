@@ -46,7 +46,6 @@ const data = () => {
       //x++
       //y=0
       //DATA[x] = []
-
     }
     for (let j = 2; j < tabela.rows.length; j++) {
       let amostra = tabela.rows[j].cells[1].querySelector("input[type=checkbox]")
