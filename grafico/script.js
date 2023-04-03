@@ -151,7 +151,7 @@ const regressao = () => {
   console.log("X")
   console.log(X)
 
-  let XTX = [];
+/*   let XTX = [];
   for (let i = 0; i < XT.length; i++) {
     XTX[i] = [];
     for (let j = 0; j < X[0].length; j++) {
@@ -160,8 +160,8 @@ const regressao = () => {
         XTX[i][j] += XT[i][k] * X[k][j];
       }
     }
-  }
-
+  } */
+  const XTX = multiplicacao(XT,X)
   console.log("XTX")
   console.log(XTX)
   matriz = XTX
@@ -236,4 +236,20 @@ function transposta(matriz) {
     }
   }
   return transposta;
+}
+
+
+function multiplicacao(matriz1, matriz2){
+  let multiplicacao = [];
+  for (let i = 0; i < matriz1.length; i++) {
+    multiplicacao[i] = [];
+    for (let j = 0; j < matriz2[0].length; j++) {
+      multiplicacao[i][j]=0;
+      for (let k = 0; k < matriz2.length; k++) {
+        multiplicacao[i][j] += matriz1[i][k] * matriz2[k][j];
+      }
+    }
+  }
+  return multiplicacao
+
 }
