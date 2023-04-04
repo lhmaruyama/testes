@@ -140,14 +140,15 @@ const regressao = () => {
   console.log("XT")
   console.log(XT)
 
-  let X = [];
+/*   let X = [];
   for (let j = 0; j < XT[0].length; j++) {
     let linha = [];
     for (let i = 0; i < XT.length; i++) {
       linha.push(XT[i][j]);
     }
     X.push(linha);
-  }
+  } */
+  const X = transposta(XT)
   console.log("X")
   console.log(X)
 
@@ -229,12 +230,24 @@ function matrizAdjunta(matriz) {
 
 function transposta(matriz) {
   var transposta = [];
-  for (var i = 0; i < matriz.length; i++) {
+
+/*   for (var i = 0; i < matriz[0].length; i++) {
     transposta[i] = [];
     for (var j = 0; j < matriz.length; j++) {
       transposta[i][j] = matriz[j][i];
     }
+  } */
+
+  //ou usando metodo de array
+
+  for (let j = 0; j < matriz[0].length; j++) {
+    let linha = [];
+    for (let i = 0; i < matriz.length; i++) {
+      linha.push(matriz[i][j]);
+    }
+    transposta.push(linha);
   }
+
   return transposta;
 }
 
