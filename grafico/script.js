@@ -134,65 +134,45 @@ const regressao = () => {
   let DATA = data()
   let ataque = [5, 13, 20, 28, 41, 49, 61, 62]
   let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
-  let indice = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+  let indice = [[8.1], [6.8], [7], [7.4], [7.7], [7.5], [7.6], [8]]
+  let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
   let fill = Array(ataque.length).fill(1)
   let XT = [fill, ataque, duracao]
   console.log("XT")
   console.log(XT)
+  console.log("Y")
+  console.log(indice)
+  
 
-  /*   let X = [];
-    for (let j = 0; j < XT[0].length; j++) {
-      let linha = [];
-      for (let i = 0; i < XT.length; i++) {
-        linha.push(XT[i][j]);
-      }
-      X.push(linha);
-    } */
+
+
   const X = transposta(XT)
   console.log("X")
   console.log(X)
 
-  /*   let XTX = [];
-    for (let i = 0; i < XT.length; i++) {
-      XTX[i] = [];
-      for (let j = 0; j < X[0].length; j++) {
-        XTX[i][j]=0;
-        for (let k = 0; k < X.length; k++) {
-          XTX[i][j] += XT[i][k] * X[k][j];
-        }
-      }
-    } */
+
   const XTX = multiplicacao(XT, X)
   console.log("XTX")
   console.log(XTX)
   //matriz = XTX
 
 
-  //function matrizInversa(matriz) {
-/*   if (XTX.length !== XTX[0].length) {
-    throw new Error('A matriz deve ser quadrada');
-  }
-  var det = determinante(XTX);
-  if (det === 0) {
-    throw new Error('A matriz não tem inversa');
-  }
-  var adjunta = matrizAdjunta(XTX);
-  var inversa = [];
-  for (var i = 0; i < XTX.length; i++) {
-    inversa[i] = [];
-    for (var j = 0; j < XTX.length; j++) {
-      inversa[i][j] = adjunta[i][j] / det;
-    }
-  } */
-  //return inversa;
-  //}
-  //matrizInversa()
   let det = determinante(XTX);
   let adjunta = matrizAdjunta(XTX);
 
   const inversa = matrizInversa(XTX, det, adjunta)
   console.log("Inversa")
   console.log(inversa)
+
+
+  //coeficientes
+  const XTY = multiplicacao(XT, indice)
+  console.log("XTY")
+  console.log(XTY)
+
+  const b = multiplicacao(inversa , XTY)
+  console.log("b")
+  console.log(b)
 
 }
 regressao()
@@ -259,16 +239,28 @@ function transposta(matriz) {
 
 
 function multiplicacao(matriz1, matriz2) {
+  if (matriz1[0].length !== matriz2.length) {
+    throw new Error('As matrizes não são compatíveis para multiplicação.');
+  }
   let multiplicacao = [];
+
   for (let i = 0; i < matriz1.length; i++) {
     multiplicacao[i] = [];
     for (let j = 0; j < matriz2[0].length; j++) {
-      multiplicacao[i][j] = 0;
+      //multiplicacao[i][j] = 0;
+      let sum = 0
       for (let k = 0; k < matriz2.length; k++) {
-        multiplicacao[i][j] += matriz1[i][k] * matriz2[k][j];
+
+        //multiplicacao[i][j] += matriz1[i][k] * matriz2[k][j];
+        sum += matriz1[i][k] * matriz2[k][j];
+      
       }
+      multiplicacao[i][j] = sum
     }
   }
+
+
+
   return multiplicacao
 
 }
