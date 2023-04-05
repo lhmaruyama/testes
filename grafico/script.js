@@ -201,6 +201,9 @@ function determinante(matriz) {
   if (matriz.length === 1) {
     return matriz[0][0];
   }
+  if (matriz.length !== matriz[0].length) {
+    throw new Error('A matriz deve ser quadrada');
+  }
   var det = 0;
   for (var i = 0; i < matriz.length; i++) {
     var sinal = (i % 2 === 0) ? 1 : -1;
