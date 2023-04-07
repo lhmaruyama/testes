@@ -112,7 +112,8 @@ for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
       correlacao[i][j] = 0
     }
     if (i > j && j != 0) {
-      correlacao[i][j] = jStat.corrcoeff(VALUES[i - 1], VALUES[j - 1])
+      let num = jStat.corrcoeff(VALUES[i - 1], VALUES[j - 1])
+      correlacao[i][j] = num.toExponential(2)
     }
     if (i == j && i != 0) {
       correlacao[i][j] = 1
@@ -125,7 +126,9 @@ for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
 //console.log(tabcorrVAR)
 //let correlacao = [tabcorrVAR, ["VALOR", 11, 21, 31, 41], ["AREA", 12, 22, 32, 42], ["LOC", 13, 23, 33, 43], ["ACAB", 14, 24, 34, 44]]
 
+console.log("correlacao")
 //console.table(correlacao)
+//console.log(correlacao)
 
 
 //REGRESSÃO LINEAR MULTIPLA
@@ -135,16 +138,13 @@ const regressao = () => {
   let ataque = [5, 13, 20, 28, 41, 49, 61, 62]
   let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
   let indice = [[8.1], [6.8], [7], [7.4], [7.7], [7.5], [7.6], [8]]
-  let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+  //let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
   let fill = Array(ataque.length).fill(1)
   let XT = [fill, ataque, duracao]
   console.log("XT")
   console.log(XT)
   console.log("Y")
   console.log(indice)
-  
-
-
 
   const X = transposta(XT)
   console.log("X")
@@ -170,12 +170,56 @@ const regressao = () => {
   console.log("XTY")
   console.log(XTY)
 
-  const b = multiplicacao(inversa , XTY)
+  const b = multiplicacao(inversa, XTY)
   console.log("b")
   console.log(b)
 
+  //estimado
+  let estimado = []
+  for (let i = 0; i < indice.length; i++) {
+    estimado[i] = []
+    //estimado[i] = (b[0][0] + b[1][0]*ataque[i] + b[2][0]*duracao[i]).toExponential(2)
+    estimado[i][0] = b[0][0] + b[1][0] * ataque[i] + b[2][0] * duracao[i]
+  }
+
+  console.log("estimado")
+  console.log(estimado)
+
+  //erros
+  const erros = indice.map((value, index) => [
+    estimado[index][0] - value[0]
+  ])
+
+  console.log("erros")
+  console.log(erros)
+
+  //R2 coeficiente de determinação multiplo
+  //R2 = SSR/SST
+  const Y = indice.map(valor => { return valor[0] })
+  //let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+  const mean = jStat.mean(Y)//media
+  console.log("mean")
+  console.log(mean)
+  //SSR soma dos quadrados da regressão
+  const SSR = estimado.reduce((acumulado, valor) => acumulado + ((valor[0] - mean) ** 2), 0)
+  console.log("SSR")
+  console.log(SSR)
+  //SST soma dos quadrados total
+  const SST = indice.reduce((acumulado, valor) => acumulado + ((valor[0] - mean) ** 2), 0)
+  console.log("SST")
+  console.log(SST)
+  //R2
+  const R2 = SSR/SST
+  console.log("R2")
+  console.log(R2)
 }
 regressao()
+
+
+
+
+///////////////////////////////////
+
 
 function determinante(matriz) {
   if (matriz.length === 1) {
@@ -253,7 +297,7 @@ function multiplicacao(matriz1, matriz2) {
 
         //multiplicacao[i][j] += matriz1[i][k] * matriz2[k][j];
         sum += matriz1[i][k] * matriz2[k][j];
-      
+
       }
       multiplicacao[i][j] = sum
     }
