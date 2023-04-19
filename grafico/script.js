@@ -262,7 +262,7 @@ const analise = () => {
   console.log(R2aj)
 
   //erro padrão
-  let errsd = Math.sqrt(SSE/r)
+  let errsd = Math.sqrt(SSE / r)
 
   //média dos quadrados da regressão (excel MQ regressão)
   const MQR = SSR / k
@@ -317,19 +317,19 @@ const normalidade = () => {
   let DATA = data()
   const Y = DATA[0]
   let estimado = regressao()
-  
+
   //erros ou residuos
-  const erros = Y.map((value, index) => [
+  const erros = Y.map((value, index) =>
     value - estimado[index]
-  ])
+  )
 
   console.log("erros")
   console.log(erros)
-  
-  const errel = erros.map((value, index) => [
-    value / Y[index]
-  ])
+
   //erros relativos
+  const errel = erros.map((value, index) =>
+    value / Y[index]
+  )
   console.log("erros relativos")
   console.log(errel)
 
@@ -338,10 +338,62 @@ const normalidade = () => {
   const k = DATA.length - 1 //grau de liberdade do modelo, numero de variaveis
   const r = (n - k - 1) //grau de liberdade dos residuos
   const SSE = Y.reduce((acumulado, valor, index) => acumulado + ((valor - estimado[index][0]) ** 2), 0)
-  let errsd = Math.sqrt(SSE/r)
+  let errsd = Math.sqrt(SSE / r)
 
   console.log("errsd")
   console.log(errsd)
+
+
+  // residuo/erro padrão
+  const ressd = erros.map((value, index) =>
+    value / errsd
+  )
+  console.log("ressd")
+  console.log(ressd)
+  let acumulado = 0
+  acumulado = ressd.reduce((acumulado, valor) => {
+    if (valor >= 1 || valor <= -1) {
+      acumulado++
+    } else {
+      acumulado
+    }
+
+    return acumulado
+  }, 0)
+  let res68 = (n - acumulado)/n
+  console.log("res68")
+  console.log(res68)
+
+  acumulado = 0
+
+  acumulado = ressd.reduce((acumulado, valor) => {
+    if (valor >= 1.64 || valor <= -1.64) {
+      acumulado++
+    } else {
+      acumulado
+    }
+
+    return acumulado
+  }, 0)
+  let res90 = (n - acumulado)/n
+  console.log("res90")
+  console.log(res90)
+
+  acumulado = 0
+
+  acumulado = ressd.reduce((acumulado, valor) => {
+    if (valor >= 1.96 || valor <= -1.96) {
+      acumulado++
+    } else {
+      acumulado
+    }
+
+    return acumulado
+  }, 0)
+  let res95 = (n - acumulado)/n
+  console.log("res95")
+  console.log(res95)
+
 }
 normalidade()
 
