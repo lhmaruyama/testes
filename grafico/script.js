@@ -278,8 +278,25 @@ const analise = () => {
   const p_valor = jStat.ftest(F, k, r)
   console.log("p-valor")
   console.log(p_valor)
+  let nivelSignificancia //probabilidade
+  switch(true) {
+    case (p_valor < 0.01):
+      nivelSignificancia = 0.01;
+      break;
+    case (p_valor >= 0.01 && p_valor < 0.02):
+      nivelSignificancia = 0.02;
+      break;
+    case (p_valor >= 0.02 && p_valor < 0.05):
+      nivelSignificancia = 0.05;
+      break;
+    default:
+      nivelSignificancia = "Não significativo";
+  }
+  console.log("nivelSignificancia")
+  console.log(nivelSignificancia)
+  let prob = 1 - nivelSignificancia
 
-  const Ftab = jStat.centralF.inv(0.01, k, r)
+  const Ftab = jStat.centralF.inv(prob, k, r)
   console.log("Ftab")
   console.log(Ftab)
 }
