@@ -1,5 +1,5 @@
 
-// carrega os dados
+// carrega TODOS os dados da tabela
 const table = () => {
 
   let TABLE = []
@@ -28,12 +28,14 @@ const table = () => {
   }
 
   //console.table(DATA)
-  console.log(TABLE)
+  //console.log(TABLE)
   return TABLE
 }
 
 table()
 
+
+//carrega dados apenas das variaveis
 const data = () => {
 
   let DATA = []
@@ -52,7 +54,7 @@ const data = () => {
       if (amostra.checked == true && variavel.checked == true) {
         //DATA[x][y] = tabela.rows[j].cells[i].innerHTML
         //y++
-        linha.push(tabela.rows[j].cells[i].innerHTML)
+        linha.push(parseFloat(tabela.rows[j].cells[i].innerHTML))
       }
     }
     if (linha.length > 0) {
