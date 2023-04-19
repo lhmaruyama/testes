@@ -225,6 +225,7 @@ const analise = () => {
   console.log("mean")
   console.log(mean)
 
+
   //SSR soma dos quadrados da diferença entre o Yj estimado e a média Ym da amostra (excel SQ regressão)
 
   const SSR = estimado.reduce((acumulado, valor) => acumulado + ((valor[0] - mean) ** 2), 0)
@@ -260,6 +261,9 @@ const analise = () => {
   console.log("R2aj")
   console.log(R2aj)
 
+  //erro padrão
+  let errsd = Math.sqrt(SSE/r)
+
   //média dos quadrados da regressão (excel MQ regressão)
   const MQR = SSR / k
   console.log("MQR")
@@ -279,14 +283,14 @@ const analise = () => {
   console.log("p-valor")
   console.log(p_valor)
   let nivelSignificancia //probabilidade
-  switch(true) {
-    case (p_valor < 0.01):
+  switch (true) {
+    case (p_valor <= 0.01):
       nivelSignificancia = 0.01;
       break;
-    case (p_valor >= 0.01 && p_valor < 0.02):
+    case (p_valor > 0.01 && p_valor <= 0.02):
       nivelSignificancia = 0.02;
       break;
-    case (p_valor >= 0.02 && p_valor < 0.05):
+    case (p_valor > 0.02 && p_valor <= 0.05):
       nivelSignificancia = 0.05;
       break;
     default:
@@ -299,9 +303,47 @@ const analise = () => {
   const Ftab = jStat.centralF.inv(prob, k, r)
   console.log("Ftab")
   console.log(Ftab)
+
+  if (F > Ftab) {
+    console.log("Fcalc > Ftab")
+  } else {
+    console.log("Fcalc < Ftab")
+  }
 }
 
-analise()
+//analise()
+
+const normalidade = () => {
+  let DATA = data()
+  const Y = DATA[0]
+  let estimado = regressao()
+  
+  //erros ou residuos
+  const erros = Y.map((value, index) => [
+    value - estimado[index]
+  ])
+
+  console.log("erros")
+  console.log(erros)
+  
+  const errel = erros.map((value, index) => [
+    value / Y[index]
+  ])
+  //erros relativos
+  console.log("erros relativos")
+  console.log(errel)
+
+  //erro padrão
+  const n = Y.length //tamanho da amostra
+  const k = DATA.length - 1 //grau de liberdade do modelo, numero de variaveis
+  const r = (n - k - 1) //grau de liberdade dos residuos
+  const SSE = Y.reduce((acumulado, valor, index) => acumulado + ((valor - estimado[index][0]) ** 2), 0)
+  let errsd = Math.sqrt(SSE/r)
+
+  console.log("errsd")
+  console.log(errsd)
+}
+normalidade()
 
 
 ///////////////////////////////////
