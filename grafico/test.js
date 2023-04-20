@@ -13,19 +13,19 @@ const VALUES = [VALOR, AREA, LOC, ACAB]
 
 //adiciona linhas e colunas à tabela de forma automatica para receber dados de teste
 let celula
-//let linha
+//let line
 //let coluna
-for (let i = tabela.rows.length; i < VALOR.length + 2; i++) {
+for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
 
-  let linha = tabela.insertRow();
-  //celula = linha.insertCell();
+  let line = tableData.insertRow();
+  //celula = line.insertCell();
   //celula.contentEditable = true;
-  //linha = tabela.insertRow(-1);
+  //line = tableData.insertRow(-1);
   for (let j = 0; j < VAR.length; j++) {
-    celula = linha.insertCell();
+    celula = line.insertCell();
     celula.contentEditable = true;
     if (j == 0) {
-      celula.innerHTML = String(tabela.rows.length - 2).padStart(2, "0");
+      celula.innerHTML = String(tableData.rows.length - 2).padStart(2, "0");
     }
     if (j == 1) {
       const checkbox = document.createElement('input');
@@ -38,7 +38,7 @@ for (let i = tabela.rows.length; i < VALOR.length + 2; i++) {
     if (j <= 1) {
       celula.style.backgroundColor = "#dddddd"
     }
-    //celula = tabela.rows[i].insertCell(-1);
+    //celula = tableData.rows[i].insertCell(-1);
     //celula.contentEditable = true;
   }
 
@@ -46,7 +46,7 @@ for (let i = tabela.rows.length; i < VALOR.length + 2; i++) {
 
 for (let i = 0; i < VALOR.length + 2; i++) {
   for (let j = 0; j < VAR.length - 2; j++) {
-    celula = tabela.rows[i].insertCell(-1);
+    celula = tableData.rows[i].insertCell(-1);
     celula.contentEditable = true;
 
     if (i == 1) {
@@ -65,17 +65,17 @@ for (let i = 0; i < VALOR.length + 2; i++) {
 }
 
 //preenche os dados na tabela
-for (let i = 2; i < tabela.rows.length; i++) {
+for (let i = 2; i < tableData.rows.length; i++) {
 
-  tabela.rows[0].cells[2].innerHTML = VAR[0]
-  tabela.rows[0].cells[3].innerHTML = VAR[1]
-  tabela.rows[0].cells[4].innerHTML = VAR[2]
-  tabela.rows[0].cells[5].innerHTML = VAR[3]
+  tableData.rows[0].cells[2].innerHTML = VAR[0]
+  tableData.rows[0].cells[3].innerHTML = VAR[1]
+  tableData.rows[0].cells[4].innerHTML = VAR[2]
+  tableData.rows[0].cells[5].innerHTML = VAR[3]
 
-  tabela.rows[i].cells[2].innerHTML = VALOR[i - 2]
-  tabela.rows[i].cells[3].innerHTML = AREA[i - 2]
-  tabela.rows[i].cells[4].innerHTML = LOC[i - 2]
-  tabela.rows[i].cells[5].innerHTML = ACAB[i - 2]
+  tableData.rows[i].cells[2].innerHTML = VALOR[i - 2]
+  tableData.rows[i].cells[3].innerHTML = AREA[i - 2]
+  tableData.rows[i].cells[4].innerHTML = LOC[i - 2]
+  tableData.rows[i].cells[5].innerHTML = ACAB[i - 2]
 
 }
 

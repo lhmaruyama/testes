@@ -1,52 +1,53 @@
 
 
 
-function adicionarLinha() {
+function addLine() {
   // let tabela = document.getElementById("tabela");
   //isActive.push(false)
   //console.log(isActive);
   let celula
-  let linha = tabela.insertRow(-1);
-  for (let i = 0; i < tabela.rows[0].cells.length; i++) {
-    celula = linha.insertCell(i);
-    celula.contentEditable = true;
+  let line = tableData.insertRow(-1);
+  for (let i = 0; i < tableData.rows[0].cells.length; i++) {
+    celula = line.insertCell(i);
     if (i == 0) {
+      celula.innerHTML = String(tableData.rows.length - 2).padStart(2, "0");
+    }
+    if (i == 1) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxL'
       checkbox.type = 'checkbox';
       celula.appendChild(checkbox);
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
     }
-    if (i == 1) {
-      celula.innerHTML = String(tabela.rows.length - 1).padStart(2, "0");
-    }
     if (i <= 1) {
       celula.style.backgroundColor = "#dddddd"
+    } else {
+      celula.contentEditable = true;
     }
   }
   //update()
   //data()
 }
 
-function removerLinha() {
+function removeLine() {
   //let tabela = document.getElementById("tabela");
-  //let linhas = tabela.rows
+  //let linhas = tableData.rows
 
-  if (tabela.rows.length > 4) {
-    tabela.deleteRow(-1);
+  if (tableData.rows.length > 4) {
+    tableData.deleteRow(-1);
   }
-  //tabela.ariaRowIndex()
+  //tableData.ariaRowIndex()
   //isActive.pop()
   //console.log(isActive);
   //update()
 }
 
 //let tabela = document.getElementById("tabela");
-for (let i = 0; i < tabela.rows.length; i++) {
-  tabela.rows[i].cells[0].addEventListener('click', function () {
+/* for (let i = 0; i < tableData.rows.length; i++) {
+  tableData.rows[i].cells[0].addEventListener('click', function () {
     //update()
   })
-}
+} */
 
 //console.log(checkboxes[0].checked)
 //if(checkboxes[0].checked==true){}
@@ -90,7 +91,7 @@ for (let i = 1; i < selectOne.length; i++) {
       selectOne[0].checked = true
     } else {
       selectOne[0].checked = false
-    } 
+    }
     //update()
     //dataCheck()
     //let n = selectOne.length
@@ -107,11 +108,11 @@ for (let i = 1; i < selectOne.length; i++) {
   });
 }
 
-function adicionarColuna() {
+function addColumn() {
   //let tabela = document.getElementById("tabela");
   //let celula;
-  for (let i = 0; i < tabela.rows.length; i++) {
-    celula = tabela.rows[i].insertCell(-1);
+  for (let i = 0; i < tableData.rows.length; i++) {
+    celula = tableData.rows[i].insertCell(-1);
     celula.contentEditable = true;
     //celula = document.createElement("td")
     //coluna.appendChild(celula)
@@ -131,11 +132,11 @@ function adicionarColuna() {
 
 }
 
-function removerColuna() {
+function removeColumn() {
   //let tabela = document.getElementById("tabela");
-  if (tabela.rows[0].cells.length > 4) {
-    for (let i = 0; i < tabela.rows.length; i++) {
-      tabela.rows[i].deleteCell(-1);
+  if (tableData.rows[0].cells.length > 4) {
+    for (let i = 0; i < tableData.rows.length; i++) {
+      tableData.rows[i].deleteCell(-1);
     }
   }
   //update()
@@ -145,7 +146,7 @@ function removerColuna() {
 /*
 window.onload = function() {
   var tabela = document.getElementById("tabela");
-  var celulas = tabela.getElementsByTagName("td");
+  var celulas = tableData.getElementsByTagName("td");
   for (var i = 0; i < celulas.length; i++) {
     celulas[i].addEventListener("click", function() {
       console.log("Clique na célula " + this.cellIndex);
@@ -154,21 +155,21 @@ window.onload = function() {
 }; */
 
 //let selected = [false, false, false, false, false, false, false, false, false, false]
-/* for (let i = 0; i < tabela.rows.length; i++) {
-  for (let j = 0; j < tabela.rows[i].cells.length; j++) {
-    //tabela.rows[i].cells[j].addEventListener('click', function() {
+/* for (let i = 0; i < tableData.rows.length; i++) {
+  for (let j = 0; j < tableData.rows[i].cells.length; j++) {
+    //tableData.rows[i].cells[j].addEventListener('click', function() {
     // console.log(`Linha ${i+1}, Coluna ${j+1}`);
     // this.style.backgroundColor = "yellow"
     // });
-    tabela.rows[i].cells[0].addEventListener('click', function () {
+    tableData.rows[i].cells[0].addEventListener('click', function () {
       //selected[i] = !selected[i]
       //console.log(selected)
       if (selected[i] == true) {
-        tabela.rows[i].style.backgroundColor = "yellow"
-        tabela.rows[i].cells[0].style.backgroundColor = "yellow"
+        tableData.rows[i].style.backgroundColor = "yellow"
+        tableData.rows[i].cells[0].style.backgroundColor = "yellow"
       } else {
-        tabela.rows[i].style.backgroundColor = ""
-        tabela.rows[i].cells[0].style.backgroundColor = "#dddddd"
+        tableData.rows[i].style.backgroundColor = ""
+        tableData.rows[i].cells[0].style.backgroundColor = "#dddddd"
       }
       
     });

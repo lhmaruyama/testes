@@ -5,23 +5,23 @@ const table = () => {
   let TABLE = []
   //let checkboxes = document.querySelectorAll("input[type=checkbox]")
   // tabela completa
-  for (let i = 0; i < tabela.rows[0].cells.length; i++) {
+  for (let i = 0; i < tableData.rows[0].cells.length; i++) {
     TABLE[i] = []
-    for (let j = 0; j < tabela.rows.length; j++) {
+    for (let j = 0; j < tableData.rows.length; j++) {
       //TABLE[i][j]=`${i}${j}`
       /*       if (i == 1 || (j == 1 && i > 0)) {
               TABLE[i][j] = checkboxes[j].checked
               //TABLE[i][j] = true
             } else {
             } */
-      let item = tabela.rows[j].cells[i].querySelector("input[type=checkbox]")
+      let item = tableData.rows[j].cells[i].querySelector("input[type=checkbox]")
       if (item) {
-        //let checkboxes = tabela.rows[j].cells[i].innerHTML
+        //let checkboxes = tableData.rows[j].cells[i].innerHTML
         TABLE[i][j] = item.checked
 
       } else {
 
-        TABLE[i][j] = tabela.rows[j].cells[i].innerHTML
+        TABLE[i][j] = tableData.rows[j].cells[i].innerHTML
 
       }
     }
@@ -32,7 +32,7 @@ const table = () => {
   return TABLE
 }
 
-table()
+//table()
 
 
 //carrega dados apenas das variaveis
@@ -41,20 +41,20 @@ const data = () => {
   let DATA = []
   let x = -1
   let y
-  for (let i = 2; i < tabela.rows[0].cells.length; i++) {
-    let variavel = tabela.rows[1].cells[i].querySelector("input[type=checkbox]")
+  for (let i = 2; i < tableData.rows[0].cells.length; i++) {
+    let variavel = tableData.rows[1].cells[i].querySelector("input[type=checkbox]")
     let linha = []
     if (variavel.checked == true) {
       //x++
       //y=0
       //DATA[x] = []
     }
-    for (let j = 2; j < tabela.rows.length; j++) {
-      let amostra = tabela.rows[j].cells[1].querySelector("input[type=checkbox]")
+    for (let j = 2; j < tableData.rows.length; j++) {
+      let amostra = tableData.rows[j].cells[1].querySelector("input[type=checkbox]")
       if (amostra.checked == true && variavel.checked == true) {
-        //DATA[x][y] = tabela.rows[j].cells[i].innerHTML
+        //DATA[x][y] = tableData.rows[j].cells[i].innerHTML
         //y++
-        linha.push(parseFloat(tabela.rows[j].cells[i].innerHTML))
+        linha.push(parseFloat(tableData.rows[j].cells[i].innerHTML))
       }
     }
     if (linha.length > 0) {
@@ -69,7 +69,7 @@ const data = () => {
   //console.log(x,y)
   return DATA
 }
-data()
+//data()
 
 
 //teste

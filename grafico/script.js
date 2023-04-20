@@ -37,10 +37,9 @@ const infoSet = () => {
 
   console.table(info)
 }
-
-
 infoSet()
-//console.log(tabela.rows[1].cells[1].innerHTML.checked)
+
+//console.log(tableData.rows[1].cells[1].innerHTML.checked)
 /*
 const alpha = .8//nivel confiança
 const nc = 1 - alpha//
@@ -95,10 +94,10 @@ console.log("R: " + corrLOC);
 const correlacao = () => {
 
   let correlacao = []
-  for (let i = 0; i < tabela.rows[0].cells.length - 1; i++) {
+  for (let i = 0; i < tableData.rows[0].cells.length - 1; i++) {
     correlacao[i] = [] //cria array dentro de array
 
-    for (let j = 0; j < tabela.rows[0].cells.length - 1; j++) {
+    for (let j = 0; j < tableData.rows[0].cells.length - 1; j++) {
       //correlacao[i][j] = `${i}${j}`
 
       if (i == 0 && j == 0) {
@@ -204,7 +203,7 @@ const regressao = () => {
 }
 //regressao()
 
-const analise = () => {
+const estatistica = () => {
   let DATA = data()
   let estimado = regressao()
   //erros
@@ -227,11 +226,9 @@ const analise = () => {
 
 
   //SSR soma dos quadrados da diferença entre o Yj estimado e a média Ym da amostra (excel SQ regressão)
-
   const SSR = estimado.reduce((acumulado, valor) => acumulado + ((valor[0] - mean) ** 2), 0)
   console.log("SSR")
   console.log(SSR)
-
   //SST soma dos quadrados da diferença entre Yi amostra e a média Ym da amostra 
   const SST = Y.reduce((acumulado, valor) => acumulado + ((valor - mean) ** 2), 0)
   console.log("SST")
@@ -311,8 +308,7 @@ const analise = () => {
   }
 }
 
-//analise()
-
+//estatistica()
 const normalidade = () => {
   let DATA = data()
   const Y = DATA[0]
@@ -399,8 +395,135 @@ const normalidade = () => {
 
 
 }
-normalidade()
+//normalidade()
 
+
+const outliers = ()=>{
+  let DATA = data()
+  const Y = DATA[0]
+  let estimado = regressao()
+
+  //erros ou residuos
+  const erros = Y.map((value, index) =>
+    value - estimado[index]
+  )
+
+  //console.log("erros")
+  //console.log(erros)
+
+  //erros relativos
+  const errel = erros.map((value, index) =>
+    value / Y[index]
+  )
+  //console.log("erros relativos")
+  //console.log(errel)
+
+  //erro padrão
+  const n = Y.length //tamanho da amostra
+  const k = DATA.length - 1 //grau de liberdade do modelo, numero de variaveis
+  const r = (n - k - 1) //grau de liberdade dos residuos
+  const SSE = Y.reduce((acumulado, valor, index) => acumulado + ((valor - estimado[index][0]) ** 2), 0)
+  let errsd = Math.sqrt(SSE / r)
+
+  //console.log("errsd")
+  //console.log(errsd)
+
+
+  // residuo/erro padrão
+  const ressd = erros.map((value) =>
+    value / errsd
+  )
+  //console.log("ressd")
+  //console.log(ressd)
+
+  let qtdOutliers = ressd.reduce((qtdOutliers, valor) => {
+    if (valor >= 2 || valor <= -2) {
+      qtdOutliers++
+    } else {
+      qtdOutliers
+    }
+
+    return qtdOutliers
+  }, 0)
+  let porcentageOutliers = qtdOutliers / n
+  console.log("porcentageOutliers")
+  console.log(porcentageOutliers)
+
+
+  let title = ["Quantidade de outliers", "% de outliers"]
+  let line1 = [qtdOutliers, porcentageOutliers]
+  console.table([title, line1])
+
+}
+//outliers()
+
+
+const anova = ()=>{
+  let DATA = data()
+  let estimado = regressao()
+  //erros
+  /*   const erros = indice.map((value, index) => [
+      estimado[index][0] - value[0]
+    ])
+  
+    console.log("erros")
+    console.log(erros) */
+
+  //R2 coeficiente de determinação multiplo
+  //R2 = SSR/SST
+  //const Y = indice.map(valor => { return valor[0] })
+  //let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+  //const mean = jStat.mean(Y)//media Ym
+  const Y = DATA[0]
+  const mean = jStat.mean(Y)//media Ym
+  //console.log("mean")
+  //console.log(mean)
+
+
+  //SSR soma dos quadrados da diferença entre o Yj estimado e a média Ym da amostra (excel SQ regressão)
+
+  const SSR = estimado.reduce((acumulado, valor) => acumulado + ((valor[0] - mean) ** 2), 0)
+  //console.log("SSR")
+  //console.log(SSR)
+
+  //SSE soma dos quadrados da diferença entre Yi amostra e o Yj estimado (excel SQ residuo)
+  const SSE = Y.reduce((acumulado, valor, index) => acumulado + ((valor - estimado[index][0]) ** 2), 0)
+  //console.log("SST")
+  //console.log(SSE)
+  //SST soma dos quadrados da diferença entre Yi amostra e a média Ym da amostra 
+  const SST = Y.reduce((acumulado, valor) => acumulado + ((valor - mean) ** 2), 0)
+  //console.log("SST")
+  //console.log(SST)
+  //graus de liberdade
+  const n = Y.length //tamanho da amostra
+  const k = DATA.length - 1 //grau de liberdade do modelo, numero de variaveis
+  const r = (n - k - 1) //grau de liberdade dos residuos
+
+  //média dos quadrados da regressão (excel MQ regressão)
+  const MQR = SSR / k
+  //console.log("MQR")
+  //console.log(MQR)
+
+  //média dos quadrados dos residuos (excel MQ residuos)
+  const MQE = SSE / (n - k - 1)
+  //console.log("MQE")
+  //console.log(MQE)
+
+  //F significancia
+  const F = MQR / MQE
+  //console.log("F")
+  //console.log(F)
+
+
+  let title = ["Fonte de variação", "Graus de liberdade", "Soma dos quadrados", "Quadrado médio", "F"]
+  let line1 = ["Explicada", k, SSR, MQR, F]
+  let line2 = ["Não explicada", r, SSE, MQE,""]
+  let line3 = ["Total", k+r, SSR+SSE,"",""]
+  console.table([title, line1, line2, line3])
+
+
+}
+anova()
 
 ///////////////////////////////////
 
