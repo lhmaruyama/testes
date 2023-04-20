@@ -37,7 +37,7 @@ const infoSet = () => {
 
   console.table(info)
 }
-infoSet()
+//infoSet()
 
 //console.log(tableData.rows[1].cells[1].innerHTML.checked)
 /*
@@ -138,8 +138,8 @@ const correlacao = () => {
 const regressao = () => {
   let DATA = data()
   let Y = DATA[0].map(valor => { return [valor] })
-  console.log("Y")
-  console.log(Y)
+  //console.log("Y")
+  //console.log(Y)
   //let ataque = [5, 13, 20, 28, 41, 49, 61, 62]
   //let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
   //let indice = [[8.1], [6.8], [7], [7.4], [7.7], [7.5], [7.6], [8]]
@@ -149,28 +149,28 @@ const regressao = () => {
   let fill = Array(DATA[0].length).fill(1)
   let XT = DATA
   XT[0] = fill
-  console.log("XT")
-  console.log(XT)
+  //console.log("XT")
+  //console.log(XT)
   //console.log("Y")
   //console.log(indice)
 
   const X = transposta(XT)
-  console.log("X")
-  console.log(X)
+  //console.log("X")
+  //console.log(X)
 
 
   const XTX = multiplicacao(XT, X)
-  console.log("XTX")
-  console.log(XTX)
+  //console.log("XTX")
+  //console.log(XTX)
   //matriz = XTX
 
 
   let det = determinante(XTX);
-  console.log("det")
-  console.log(det)
+  //console.log("det")
+  //console.log(det)
   let adjunta = matrizAdjunta(XTX);
-  console.log("adjunta")
-  console.log(adjunta)
+  //console.log("adjunta")
+  //console.log(adjunta)
   const inversa = matrizInversa(XTX, det, adjunta)
   console.log("Inversa")
   console.log(inversa)
@@ -178,12 +178,56 @@ const regressao = () => {
 
   //coeficientes
   const XTY = multiplicacao(XT, Y)
-  console.log("XTY")
-  console.log(XTY)
+  //console.log("XTY")
+  //console.log(XTY)
 
   const b = multiplicacao(inversa, XTY)
-  console.log("b")
+  //console.log("b")
   console.log(b)
+  let TABLE = table()
+  let coefficients = []
+  let title = ["Variáveis", "Coeficientes"]
+  for (let index = 0; index < b.length; index++) {
+    let line = []
+    if (index == 0) {
+      line[0] = "Intersecção"
+    }
+    if (index > 0) {
+      line[0] = TABLE[index + 2][0]
+    }
+
+    line[1] = b[index][0]
+
+    coefficients.push(line)
+
+  }
+  coefficients.unshift(title)
+  /*   let variables = TABLE.map((value, index) =>{
+      if (index>1) {
+        //console.log(value[0])
+        return value[0]
+      }
+    }) */
+
+  //let line1 = ["Resíduos situados entre -1s e +1s", "68%", qtd68, res68]
+
+  //console.table([title, line1, line2, line3])
+  console.table(coefficients)
+  //console.table(b)
+
+
+  let equation = "Valor unitário = "
+  for (let index = 0; index < b.length; index++) {
+    if (index == 0) {
+      equation = equation + "(" + b[index][0] + ")"
+    }
+    if (index > 0) {
+      equation = equation + " + " + "(" + b[index][0] + ")" + "*" + TABLE[index + 2][0]
+    }
+
+  }
+
+  console.log(equation)
 
   //estimado
   //let estimado = []
@@ -196,12 +240,48 @@ const regressao = () => {
   const estimado = multiplicacao(X, b)
 
 
-  console.log("estimado")
-  console.log(estimado)
+  let c = []
+  for (let i = 0; i < inversa.length; i++) {
+    let line = []
+    for (let j = 0; j < inversa.length; j++) {
+      if (i == j) {
+        line = inversa[i][j]
+        c.push(line)
+      }
+    }
+  }
+  console.log("c")
+  console.log(c)
+
+  //SSE soma dos quadrados da diferença entre Yi amostra e o Yj estimado (excel SQ residuo)
+  const SSE = Y.reduce((acumulado, valor, index) => acumulado + ((valor - estimado[index][0]) ** 2), 0)
+  console.log("SST")
+  console.log(SSE)
+
+  //erro padrão das variaveis independentes
+  let errsd = c.map(valor => Math.sqrt(SSE*valor/24))
+  console.log("errsd")
+  console.log(errsd)
+
+  //stat t = coeficientes / erro padrão
+
+  //valor p de cada variavel
+  const t_test = jStat.ttest(3.3874316452915,25,2)
+  console.log("t_test")
+  console.log(t_test)
+
+  //valor t tabelado
+  const t_student = jStat.studentt.inv(0.2/2, 27)
+  console.log("t_student")
+  console.log(-t_student)
+
+
+  //console.log("estimado")
+  //console.log(estimado)
   return estimado
 
 }
-//regressao()
+regressao()
 
 const estatistica = () => {
   let DATA = data()
@@ -279,6 +359,7 @@ const estatistica = () => {
   const p_valor = jStat.ftest(F, k, r)
   console.log("p-valor")
   console.log(p_valor)
+
   let nivelSignificancia //probabilidade
   switch (true) {
     case (p_valor <= 0.01):
@@ -308,7 +389,7 @@ const estatistica = () => {
   }
 }
 
-//estatistica()
+estatistica()
 const normalidade = () => {
   let DATA = data()
   const Y = DATA[0]
@@ -398,7 +479,7 @@ const normalidade = () => {
 //normalidade()
 
 
-const outliers = ()=>{
+const outliers = () => {
   let DATA = data()
   const Y = DATA[0]
   let estimado = regressao()
@@ -458,7 +539,7 @@ const outliers = ()=>{
 //outliers()
 
 
-const anova = ()=>{
+const anova = () => {
   let DATA = data()
   let estimado = regressao()
   //erros
@@ -517,13 +598,15 @@ const anova = ()=>{
 
   let title = ["Fonte de variação", "Graus de liberdade", "Soma dos quadrados", "Quadrado médio", "F"]
   let line1 = ["Explicada", k, SSR, MQR, F]
-  let line2 = ["Não explicada", r, SSE, MQE,""]
-  let line3 = ["Total", k+r, SSR+SSE,"",""]
+  let line2 = ["Não explicada", r, SSE, MQE, ""]
+  let line3 = ["Total", k + r, SSR + SSE, "", ""]
   console.table([title, line1, line2, line3])
 
 
 }
-anova()
+//anova()
+
+
 
 ///////////////////////////////////
 

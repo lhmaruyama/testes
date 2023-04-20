@@ -28,7 +28,7 @@ const table = () => {
   }
 
   //console.table(DATA)
-  //console.log(TABLE)
+  console.log(TABLE)
   return TABLE
 }
 
@@ -65,7 +65,7 @@ const data = () => {
   }
 
   //console.table(DATA)
-  console.log(DATA)
+  //console.log(DATA)
   //console.log(x,y)
   return DATA
 }
