@@ -350,49 +350,53 @@ const normalidade = () => {
   )
   console.log("ressd")
   console.log(ressd)
-  let acumulado = 0
-  acumulado = ressd.reduce((acumulado, valor) => {
+
+  let qtd68 = ressd.reduce((qtd68, valor) => {
     if (valor >= 1 || valor <= -1) {
-      acumulado++
+      qtd68++
     } else {
-      acumulado
+      qtd68
     }
 
-    return acumulado
+    return qtd68
   }, 0)
-  let res68 = (n - acumulado)/n
+  let res68 = (n - qtd68) / n
   console.log("res68")
   console.log(res68)
 
-  acumulado = 0
-
-  acumulado = ressd.reduce((acumulado, valor) => {
+  let qtd90 = ressd.reduce((qtd90, valor) => {
     if (valor >= 1.64 || valor <= -1.64) {
-      acumulado++
+      qtd90++
     } else {
-      acumulado
+      qtd90
     }
 
-    return acumulado
+    return qtd90
   }, 0)
-  let res90 = (n - acumulado)/n
+  let res90 = (n - qtd90) / n
   console.log("res90")
   console.log(res90)
 
-  acumulado = 0
 
-  acumulado = ressd.reduce((acumulado, valor) => {
+  let qtd95 = ressd.reduce((qtd95, valor) => {
     if (valor >= 1.96 || valor <= -1.96) {
-      acumulado++
+      qtd95++
     } else {
-      acumulado
+      qtd95
     }
 
-    return acumulado
+    return qtd95
   }, 0)
-  let res95 = (n - acumulado)/n
+  let res95 = (n - qtd95) / n
   console.log("res95")
   console.log(res95)
+
+  let title = ["Distribuição dos Resíduos", "Curva Normal", "Quantidade", "Modelo"]
+  let line1 = ["Resíduos situados entre -1s e +1s", "68%", qtd68, res68]
+  let line2 = ["Resíduos situados entre -1,64s e +1,64s", "90%", qtd90, res90]
+  let line3 = ["Resíduos situados entre -1,96s e +1,96s", "95%", qtd95, res95]
+  console.table([title, line1, line2, line3])
+
 
 }
 normalidade()
