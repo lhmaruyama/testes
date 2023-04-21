@@ -281,7 +281,7 @@ const regressao = () => {
   return estimado
 
 }
-regressao()
+//regressao()
 
 const estatistica = () => {
   let DATA = data()
@@ -389,7 +389,7 @@ const estatistica = () => {
   }
 }
 
-estatistica()
+//estatistica()
 const normalidade = () => {
   let DATA = data()
   const Y = DATA[0]

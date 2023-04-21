@@ -26,6 +26,8 @@ for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
     celula.contentEditable = true;
     if (j == 0) {
       celula.innerHTML = String(tableData.rows.length - 2).padStart(2, "0");
+
+
     }
     if (j == 1) {
       const checkbox = document.createElement('input');
@@ -33,9 +35,11 @@ for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
       checkbox.type = 'checkbox';
       checkbox.checked = true
       celula.appendChild(checkbox);
+      
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
     }
     if (j <= 1) {
+      celula.contentEditable = false;
       celula.style.backgroundColor = "#dddddd"
     }
     //celula = tableData.rows[i].insertCell(-1);

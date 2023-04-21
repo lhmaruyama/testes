@@ -77,6 +77,23 @@ selectAll.addEventListener("click", () => {
   //infoSet()
 })
 
+let fildAll = document.querySelectorAll("td")
+let dataArray = []
+let tableArray = []
+for (let i = 1; i < fildAll.length; i++) {
+  fildAll[i].addEventListener("input", function () {
+
+    console.log("input");
+    dataArray = data()
+    tableArray = table()
+
+  });
+}
+
+const dataLoad=()=>{
+  console.log(dataArray)
+  console.log(tableArray)
+  ;}
 
 let selectOne = document.querySelectorAll("input[type=checkbox]");
 for (let i = 1; i < selectOne.length; i++) {
@@ -107,6 +124,11 @@ for (let i = 1; i < selectOne.length; i++) {
     //console.log(checkboxes.forEach(isActive=>{console.log(isActive)}));
   });
 }
+
+
+
+
+
 
 function addColumn() {
   //let tabela = document.getElementById("tabela");
