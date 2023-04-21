@@ -1,6 +1,4 @@
 
-
-
 function addLine() {
   // let tabela = document.getElementById("tabela");
   //isActive.push(false)
@@ -26,7 +24,7 @@ function addLine() {
     }
   }
   //update()
-  //data()
+  //dataLoad()
 }
 
 function removeLine() {
@@ -72,28 +70,27 @@ selectAll.addEventListener("click", () => {
     }
     //checkboxes[i].checked = this.checked;
   }
-  data()
+  dataLoad()
   //update()
   //infoSet()
 })
 
 let fildAll = document.querySelectorAll("td")
-let dataArray = []
-let tableArray = []
+
 for (let i = 1; i < fildAll.length; i++) {
   fildAll[i].addEventListener("input", function () {
 
     console.log("input");
-    dataArray = data()
-    tableArray = table()
+    data = dataLoad()
+    table = tableLoad()
 
   });
 }
 
-const dataLoad=()=>{
-  console.log(dataArray)
-  console.log(tableArray)
-  ;}
+const buttonData=()=>{
+  console.log(data)
+  console.log(table)
+}
 
 let selectOne = document.querySelectorAll("input[type=checkbox]");
 for (let i = 1; i < selectOne.length; i++) {
@@ -112,7 +109,7 @@ for (let i = 1; i < selectOne.length; i++) {
     //update()
     //dataCheck()
     //let n = selectOne.length
-    data()
+    dataLoad()
     //infoSet()
     //console.log(DATA);
 

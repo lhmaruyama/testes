@@ -3,7 +3,7 @@
 //let tabInfo = []
 //let info = ["Variáveis e Dados do Modelo", "Total de variáveis","Variáveis utilizadas no modelo","Total de dados","Dados utilizados no modelo"]
 const infoSet = () => {
-  let DATA = table()
+  let DATA = tableLoad()
   let info = [["Variáveis e Dados do Modelo", "Total"], ["Total de variáveis", ""], ["Variáveis utilizadas no modelo", ""], ["Total de dados", ""], ["Dados utilizados no modelo", ""]]
   /* tabInfo = info.map((value, index)=>{
     //tabInfo[index]=[]
@@ -136,7 +136,7 @@ const correlacao = () => {
 //REGRESSÃO LINEAR MULTIPLA
 
 const regressao = () => {
-  let DATA = data()
+  let DATA = dataLoad()
   let Y = DATA[0].map(valor => { return [valor] })
   //console.log("Y")
   //console.log(Y)
@@ -184,7 +184,7 @@ const regressao = () => {
   const b = multiplicacao(inversa, XTY)
   //console.log("b")
   console.log(b)
-  let TABLE = table()
+  let TABLE = tableLoad()
   let coefficients = []
   let title = ["Variáveis", "Coeficientes"]
   for (let index = 0; index < b.length; index++) {
@@ -284,7 +284,7 @@ const regressao = () => {
 //regressao()
 
 const estatistica = () => {
-  let DATA = data()
+  let DATA = dataLoad()
   let estimado = regressao()
   //erros
   /*   const erros = indice.map((value, index) => [
@@ -391,7 +391,7 @@ const estatistica = () => {
 
 //estatistica()
 const normalidade = () => {
-  let DATA = data()
+  let DATA = dataLoad()
   const Y = DATA[0]
   let estimado = regressao()
 
@@ -480,7 +480,7 @@ const normalidade = () => {
 
 
 const outliers = () => {
-  let DATA = data()
+  let DATA = dataLoad()
   const Y = DATA[0]
   let estimado = regressao()
 
@@ -540,7 +540,7 @@ const outliers = () => {
 
 
 const anova = () => {
-  let DATA = data()
+  let DATA = dataLoad()
   let estimado = regressao()
   //erros
   /*   const erros = indice.map((value, index) => [

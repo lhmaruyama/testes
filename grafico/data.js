@@ -1,6 +1,8 @@
 
 // carrega TODOS os dados da tabela
-const table = () => {
+let data = []
+let table = []
+const tableLoad = () => {
 
   let TABLE = []
   //let checkboxes = document.querySelectorAll("input[type=checkbox]")
@@ -28,15 +30,15 @@ const table = () => {
   }
 
   //console.table(DATA)
-  console.log(TABLE)
+  //console.log(TABLE)
   return TABLE
 }
-
+table = tableLoad()
 //table()
 
 
 //carrega dados apenas das variaveis
-const data = () => {
+const dataLoad = () => {
 
   let DATA = []
   let x = -1
@@ -70,7 +72,7 @@ const data = () => {
   return DATA
 }
 //data()
-
+data = tableLoad()
 
 //teste
 const dataCheck = () => {
