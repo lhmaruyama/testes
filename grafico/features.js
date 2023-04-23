@@ -16,13 +16,18 @@
     let data_Y = data[0]
     console.log(data_Y)
 
-    let mean_Y = jStat.mean(data_Y)
+    let mean_Y = jStat.mean(data[0])
     console.log(mean_Y.toFixed(2))
 
-    let sum_squares = sumSquaresArrayNumber(data_Y, mean_Y)
-    console.log(sum_squares.toFixed(2))
+    let total_sum_sq = sumSquaresArrayNumber(data_Y, mean_Y)
+    console.log(total_sum_sq.toFixed(2))
 
-
+    let res_sum_sq = 0
+/*     let ataque = [5, 13, 20, 28, 41, 49, 61, 62]
+    let duracao = [118, 132, 119, 153, 91, 118, 132, 105]
+    let Y = [8.1, 6.8, 7, 7.4, 7.7, 7.5, 7.6, 8]
+    const matrix = [Y, ataque, duracao] */
+    console.log(regressionCoefficients(data))
 
 
     //coeficiente de correlação R
@@ -57,9 +62,9 @@
     //soma dos quadrados - explicada (regressão)
     let reg_sum_sq = 0
     //soma dos quadrados - não explicada (resíduos)
-    let res_sum_sq = 0
+    //let res_sum_sq = 0
     //soma dos quadrados - total
-    let total_sum_sq = 0
+    //let total_sum_sq = 0
     //graus de liberdade - explicada (regressão)
     let reg_dof = 0
     //graus de liberdade - não explicada (resíduos)

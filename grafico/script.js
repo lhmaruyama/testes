@@ -131,7 +131,7 @@ const correlacao = () => {
   console.table(correlacao)
   //console.log(correlacao)
 }
-correlacao()
+//correlacao()
 
 //REGRESSÃO LINEAR MULTIPLA
 

@@ -4,6 +4,118 @@ const sumSquaresArrayNumber = (array, number) => {
 const sumSquaresArrayArray = (array1, array2) => { }
 
 
+const regressionCoefficients = (matrix) => {
+    const Y = matrix[0].map(value => { return [value] })
+    const FIL = Array(matrix[0].length).fill(1)
+    const XT = matrix
+    XT[0] = FIL
+    const X = transposeMatrix(XT)
+    const XTX = multiplyMatrix(XT, X)
+    const DET =  determinantMatrix(XTX)
+    const ADJ = adjunctMatrix(XTX)
+    const INV = inverseMatrix(XTX, DET, ADJ)
+    const XTY = multiplyMatrix(XT, Y)
+    const B = multiplyMatrix(INV, XTY)
+    return B
+}
+
+const regressionPredicted = (matrix) => {}
+
+const transposeMatrix = (matrix) => {
+    let transpose = [];
+  
+    for (let j = 0; j < matrix[0].length; j++) {
+      let line = [];
+
+      for (let i = 0; i < matrix.length; i++) {
+        line.push(matrix[i][j]);
+      }
+      transpose.push(line);
+    }
+
+    return transpose;
+}
+
+const multiplyMatrix = (matrix1, matrix2) => {
+
+    if (matrix1[0].length !== matrix2.length) {
+        throw new Error('As matrizes não são compatíveis para multiplicação.');
+      }
+      let multiply = [];
+    
+      for (let i = 0; i < matrix1.length; i++) {
+        multiply[i] = [];
+
+        for (let j = 0; j < matrix2[0].length; j++) {
+          let sum = 0
+
+          for (let k = 0; k < matrix2.length; k++) {
+            sum += matrix1[i][k] * matrix2[k][j];
+    
+          }
+          multiply[i][j] = sum
+
+        }
+      }   
+    
+      return multiply   
+}
+
+const determinantMatrix = (matrix) => {
+    if (matrix.length === 1) {
+        return matrix[0][0];
+      }
+      if (matrix.length !== matrix[0].length) {
+        throw new Error('A matriz deve ser quadrada');
+      }
+      let determinant = 0;
+      for (let i = 0; i < matrix.length; i++) {
+        let signal = (i % 2 === 0) ? 1 : -1;
+        let submatrix = [];
+        for (let j = 1; j < matrix.length; j++) {
+            submatrix[j - 1] = matrix[j].slice(0, i).concat(matrix[j].slice(i + 1));
+        }
+        determinant += signal * matrix[0][i] * determinantMatrix(submatrix);
+      }
+      return determinant;
+}
+
+const adjunctMatrix = (matrix) => {
+    let adjunct = [];
+    for (let i = 0; i < matrix.length; i++) {
+        adjunct[i] = [];
+      for (let j = 0; j < matrix.length; j++) {
+        let signal = ((i + j) % 2 === 0) ? 1 : -1;
+        let submatrix = [];
+        for (let k = 0; k < matrix.length; k++) {
+          if (k !== i) {
+            submatrix.push(matrix[k].slice(0, j).concat(matrix[k].slice(j + 1)));
+          }
+        }
+        adjunct[i][j] = signal * determinantMatrix(submatrix);
+      }
+    }
+    return transposeMatrix(adjunct);
+}
+
+
+const inverseMatrix = (matrix, determinant, adjunct) => {
+    if (matrix.length !== matrix[0].length) {
+        throw new Error('A matriz deve ser quadrada');
+      }
+      if (determinant === 0) {
+        throw new Error('A matriz não tem inversa');
+      }
+      let inverse = [];
+      for (let i = 0; i < matrix.length; i++) {
+        inverse[i] = [];
+        for (let j = 0; j < matrix.length; j++) {
+            inverse[i][j] = adjunct[i][j] / determinant;
+        }
+      }
+      return inverse;
+}
+
 //1. DADOS E VARIÁVEIS DO MODELO
 
     //total de variáveis coletadas do modelo
