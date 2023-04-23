@@ -23,7 +23,7 @@ const tableLoad = () => {
   }
 
   //console.table(DATA)
-  //console.log(TABLE)
+  console.log(TABLE)
   return TABLE
 }
 table = tableLoad()
@@ -54,7 +54,7 @@ const dataLoad = () => {
   }
 
   //console.table(DATA)
-  //console.log(DATA)
+  console.log(DATA)
 
   return DATA
 }
