@@ -1,13 +1,17 @@
 const sumSquaresArrayNumber = (array, number) => {
     return array.reduce((accumulated, value) => accumulated + ((value - number) ** 2), 0)
  }
-const sumSquaresArrayArray = (array1, array2) => { }
+
+const sumSquaresArrayArray = (array1, array2) => {
+    return array1.reduce((accumulated, value, index) => accumulated + ((value - array2[index]) ** 2), 0)
+ }
 
 
-const regressionCoefficients = (matrix) => {
+const regression = (matrix) => {
     const Y = matrix[0].map(value => { return [value] })
+
     const FIL = Array(matrix[0].length).fill(1)
-    const XT = matrix
+    const XT = matrix.slice()
     XT[0] = FIL
     const X = transposeMatrix(XT)
     const XTX = multiplyMatrix(XT, X)
@@ -16,10 +20,40 @@ const regressionCoefficients = (matrix) => {
     const INV = inverseMatrix(XTX, DET, ADJ)
     const XTY = multiplyMatrix(XT, Y)
     const B = multiplyMatrix(INV, XTY)
-    return B
+    const C = B.map(value => { return value[0] })
+    const Yp = multiplyMatrix(X, B)
+    const P = Yp.map(value => { return value[0] })
+    return [P, C]
 }
-
-const regressionPredicted = (matrix) => {}
+const regressionCoefficients = (matrix) => {
+  const Y = matrix[0].map(value => { return [value] })
+  const FIL = Array(matrix[0].length).fill(1)
+  const XT = matrix.slice()
+  XT[0] = FIL
+  const X = transposeMatrix(XT)
+  const XTX = multiplyMatrix(XT, X)
+  const DET =  determinantMatrix(XTX)
+  const ADJ = adjunctMatrix(XTX)
+  const INV = inverseMatrix(XTX, DET, ADJ)
+  const XTY = multiplyMatrix(XT, Y)
+  const B = multiplyMatrix(INV, XTY)
+  return B
+}
+const regressionPredicted = (matrix) => {
+  const Y = matrix[0].map(value => { return [value] })
+  const FIL = Array(matrix[0].length).fill(1)
+  const XT = matrix.slice()
+  XT[0] = FIL
+  const X = transposeMatrix(XT)
+  const XTX = multiplyMatrix(XT, X)
+  const DET =  determinantMatrix(XTX)
+  const ADJ = adjunctMatrix(XTX)
+  const INV = inverseMatrix(XTX, DET, ADJ)
+  const XTY = multiplyMatrix(XT, Y)
+  const B = multiplyMatrix(INV, XTY)
+  const Yp = multiplyMatrix(X, B)
+  return Yp
+}
 
 const transposeMatrix = (matrix) => {
     let transpose = [];
