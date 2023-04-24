@@ -6,10 +6,25 @@ const sumSquaresArrayArray = (array1, array2) => {
     return array1.reduce((accumulated, value, index) => accumulated + ((value - array2[index]) ** 2), 0)
  }
 
+const subtractionArrays = (array1, array2)=> {
+  return array1.map((value, index) => value - array2[index])
+}
+
+const subtractionNumberArray = (number, array)=> {
+  return array.map(value => number - value)
+}
+
+const relativeArrays = (array1, array2)=> {
+  return array1.map((value, index) => value / array2[index])
+}
+
+const relativeArrayNumber = (array, number)=> {
+  return array.map(value => value / number)
+}
+
 
 const regression = (matrix) => {
     const Y = matrix[0].map(value => { return [value] })
-
     const FIL = Array(matrix[0].length).fill(1)
     const XT = matrix.slice()
     XT[0] = FIL
@@ -18,12 +33,22 @@ const regression = (matrix) => {
     const DET =  determinantMatrix(XTX)
     const ADJ = adjunctMatrix(XTX)
     const INV = inverseMatrix(XTX, DET, ADJ)
+    let VAR = [] //matriz de variancia e covariancia
+    for (let i = 0; i < INV.length; i++) {
+      let line = []
+      for (let j = 0; j < INV.length; j++) {
+        if (i == j) {
+          line = INV[i][j]
+          VAR.push(line)
+        }
+      }
+    }
     const XTY = multiplyMatrix(XT, Y)
     const B = multiplyMatrix(INV, XTY)
     const C = B.map(value => { return value[0] })
     const Yp = multiplyMatrix(X, B)
     const P = Yp.map(value => { return value[0] })
-    return [P, C]
+    return [P, C, VAR]
 }
 const regressionCoefficients = (matrix) => {
   const Y = matrix[0].map(value => { return [value] })
@@ -53,6 +78,29 @@ const regressionPredicted = (matrix) => {
   const B = multiplyMatrix(INV, XTY)
   const Yp = multiplyMatrix(X, B)
   return Yp
+}
+
+const regressionVariance = (matrix) => {
+  const Y = matrix[0].map(value => { return [value] })
+  const FIL = Array(matrix[0].length).fill(1)
+  const XT = matrix.slice()
+  XT[0] = FIL
+  const X = transposeMatrix(XT)
+  const XTX = multiplyMatrix(XT, X)
+  const DET =  determinantMatrix(XTX)
+  const ADJ = adjunctMatrix(XTX)
+  const INV = inverseMatrix(XTX, DET, ADJ)
+  let VAR = [] //matriz de variancia e covariancia
+  for (let i = 0; i < INV.length; i++) {
+    let line = []
+    for (let j = 0; j < INV.length; j++) {
+      if (i == j) {
+        line = INV[i][j]
+        VAR.push(line)
+      }
+    }
+  }
+  return VAR
 }
 
 const transposeMatrix = (matrix) => {

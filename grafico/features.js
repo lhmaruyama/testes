@@ -35,16 +35,20 @@
     data_Y = data[0]
     console.log(data_Y)
 
-    let reg_pred_coef = []
-    reg_pred_coef = regression(data)
+    let reg_pred_coef_var = []
+    reg_pred_coef_var = regression(data)
 
     let reg_P = []
-    reg_P = reg_pred_coef[0]
+    reg_P = reg_pred_coef_var[0]
     console.log(reg_P)
 
     let reg_C = []
-    reg_C = reg_pred_coef[1]
+    reg_C = reg_pred_coef_var[1]
     console.log(reg_C)
+
+    let reg_V = []
+    reg_V = reg_pred_coef_var[2]
+    console.log(reg_V)
 
     let mean_Y = 0
     mean_Y = jStat.mean(data[0])
@@ -81,9 +85,9 @@
 
     //desvio padrão / erro padrão
     //let stan_dev = 0
-    let stan_error = 0
-    stan_error = Math.sqrt(res_sum_sq / res_dof)
-    console.log(stan_error.toFixed(2))
+    let stan_err_mod = 0
+    stan_err_mod = Math.sqrt(res_sum_sq / res_dof)
+    console.log(stan_err_mod.toFixed(2))
 
     let reg_mean_sq = 0
     reg_mean_sq = reg_sum_sq / reg_dof
@@ -100,19 +104,19 @@
 
     //significância do modelo
     //let mod_sig = 0
-    let p_value = 0
-    p_value = jStat.ftest(calc_F, reg_dof, res_dof)
-    console.log(p_value.toExponential(2))
+    let p_value_mod = 0
+    p_value_mod = jStat.ftest(calc_F, reg_dof, res_dof)
+    console.log(p_value_mod.toExponential(2))
     //Fisher - Snedecor tabelado
     let level_sign = 0 //probabilidade
     switch (true) {
-      case (p_value <= 0.01):
+      case (p_value_mod <= 0.01):
         level_sign = 0.01;
         break;
-      case (p_value > 0.01 && p_value <= 0.02):
+      case (p_value_mod > 0.01 && p_value_mod <= 0.02):
         level_sign = 0.02;
         break;
-      case (p_value > 0.02 && p_value <= 0.05):
+      case (p_value_mod > 0.02 && p_value_mod <= 0.05):
         level_sign = 0.05;
         break;
       default:
@@ -125,6 +129,18 @@
     console.log(tab_F.toFixed(2))
 
 //3. NORMALIDADE DOS RESÍDUOS
+    let reg_residuals = []
+    reg_residuals = subtractionArrays(data_Y, reg_P)
+    console.log(reg_residuals)
+
+    let rel_residuals = []
+    rel_residuals = relativeArrays(reg_residuals, data_Y)
+    console.log(rel_residuals)
+
+    let dev_residuals = []
+    dev_residuals = relativeArrayNumber(reg_residuals, stan_err_mod)
+    console.log(dev_residuals)
+
     //quantidade e porcentagem dos resíduos situados entre -1s e +1s
     let n_nor_res_68p = 0
     //quantidade e porcentagem dos resíduos situados entre -1,64s e +1,64s
@@ -132,9 +148,37 @@
     //quantidade e porcentagem dos resíduos situados entre -1,96s e +1,96s
     let n_nor_res_95p = 0
 
+    let n_out_liers = 0
+
+    dev_residuals.forEach(value => {
+        if (value >= 1 || value <= -1) {
+            n_nor_res_68p++
+          }
+        if (value >= 1.64 || value <= -1.64) {
+            n_nor_res_90p++
+        }
+        if (value >= 1.96 || value <= -1.96) {
+            n_nor_res_95p++
+        }
+        if (value >= 2 || value <= -2) {
+            n_out_liers++
+        }
+    })
+
+    let n_nor_residuals = [n_nor_res_68p, n_nor_res_90p, n_nor_res_95p]
+
+    let nor_residuals = relativeArrayNumber(n_nor_residuals, n_dat_use)
+
+    let per_nor_residuals = subtractionNumberArray(1, nor_residuals)
+
+    console.log(n_nor_residuals)
+    console.log(per_nor_residuals)
+    console.log(n_out_liers)
+
+
 //4. OUTLIERS DO MODELO DE REGRESSÃO
     //quantidade e porcentagem dos resíduos situados entre -2s e +2s
-    let n_out_liers = 0
+    //let n_out_liers = 0
 
 //5. ANÁLISE DA VARIÂNCIA (ANOVA)
     //soma dos quadrados - explicada (regressão)
@@ -158,17 +202,48 @@
     
 //6. EQUAÇÃO DA REGRESSÃO
     //coeficientes da equação mtx, vct e ary
-    let b_reg_coef
+    //let b_reg_coef
     //equação da regressão
-    let eq_reg
+    let var_trasnformations = ["y", "x", "1/x", "x²", "1/x²", "e(x)", "1/e(x)", "ln(x)", "1/ln(x)"]
+    let eq_reg = "Valor unitário = "
+    for (let index = 0; index < reg_C.length; index++) {
+      if (index == 0) {
+        eq_reg = eq_reg + "(" + reg_C[index] + ")"
+      }
+      if (index > 0) {
+        eq_reg = eq_reg + " + " + "(" + reg_C[index] + ")" + "*" + table[index + 2][0]
+      }
+    }
+
+    console.log(eq_reg)
+
 
 //7. TESTES DE HIPÓTESE
-    //t calculado
-    let calc_t
-    //significância
-    let sign_t
+
+    //erro padrão de cada vaiavel
+    let stan_err_var = []
+    stan_err_var = reg_V.map(value => Math.sqrt(res_sum_sq * value / res_dof))
+    console.log(stan_err_var)
+
+    //t Student calculado
+    let calc_t = []
+    calc_t = relativeArrays(reg_C, stan_err_var)
+    console.log(calc_t)
+
+    //p valor
+    let test_t = []
+    let dof_f = 0
+    dof_f = data[0].length - data.length + 1
+    test_t = calc_t.map(value => jStat.ttest(value, dof_f))
+    console.log(test_t)
+    //console.log(n_dat_use)
+    //console.log(total_dof)
+    //console.log(res_dof)
+
     //t tabelado
-    let tab_t
+    let tab_t = 0
+    tab_t = -jStat.studentt.inv(0.2/2, res_dof)
+    console.log(tab_t)
 
 //8. PROJEÇÃO
     //transformações de cada variável
