@@ -59,10 +59,10 @@ const dataLoad = () => {
   let DATA = []
 
   for (let i = 2; i < tableData.rows[0].cells.length; i++) {
-    let variable = tableData.rows[2].cells[i].querySelector("input[type=checkbox]")
+    let variable = tableData.rows[3].cells[i].querySelector("input[type=checkbox]") //3 é a linha que começa o checkbox
     let line = []
 
-    for (let j = 3; j < tableData.rows.length; j++) {
+    for (let j = 4; j < tableData.rows.length; j++) { //4 é numero de linhas do cabeçario
       let sample = tableData.rows[j].cells[1].querySelector("input[type=checkbox]")
       if (sample.checked == true && variable.checked == true) {
 

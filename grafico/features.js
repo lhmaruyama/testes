@@ -9,7 +9,7 @@
     console.log(n_var_use) 
     //total de dados coletados do modelo
     let n_dat_col = 0
-    n_dat_col = table[0].length - 3
+    n_dat_col = table[0].length - 4
     console.log(n_dat_col) 
     //total de dados utilizados no modelo
     let n_dat_use = 0
