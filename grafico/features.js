@@ -9,7 +9,7 @@
     console.log(n_var_use) 
     //total de dados coletados do modelo
     let n_dat_col = 0
-    n_dat_col = table[0].length - 2
+    n_dat_col = table[0].length - 3
     console.log(n_dat_col) 
     //total de dados utilizados no modelo
     let n_dat_use = 0
@@ -59,11 +59,11 @@
     console.log(total_sum_sq.toFixed(2))
 
     let res_sum_sq =  0
-    res_sum_sq =  sumSquaresArrayArray(data_Y, reg_P)
+    res_sum_sq = sumSquaresArrayArray(data_Y, reg_P)
     console.log(res_sum_sq.toFixed(2))
 
     let reg_sum_sq =  0
-    reg_sum_sq =  sumSquaresArrayNumber(reg_P, mean_Y)
+    reg_sum_sq = sumSquaresArrayNumber(reg_P, mean_Y)
     console.log(reg_sum_sq.toFixed(2))
 
     //coeficiente de correlação R
@@ -204,22 +204,21 @@
     //coeficientes da equação mtx, vct e ary
     //let b_reg_coef
     //equação da regressão
-    let var_trasnformations = ["y", "x", "1/x", "x²", "1/x²", "e(x)", "1/e(x)", "ln(x)", "1/ln(x)"]
     let eq_reg = "Valor unitário = "
     for (let index = 0; index < reg_C.length; index++) {
       if (index == 0) {
         eq_reg = eq_reg + "(" + reg_C[index] + ")"
       }
       if (index > 0) {
-        eq_reg = eq_reg + " + " + "(" + reg_C[index] + ")" + "*" + table[index + 2][0]
-      }
+          eq_reg = eq_reg + " + " + "(" + reg_C[index] + ")" + "*" + table[index + 2][0]
+        }
     }
-
+    
     console.log(eq_reg)
-
-
-//7. TESTES DE HIPÓTESE
-
+    
+    
+    //7. TESTES DE HIPÓTESE
+    
     //erro padrão de cada vaiavel
     let stan_err_var = []
     stan_err_var = reg_V.map(value => Math.sqrt(res_sum_sq * value / res_dof))
@@ -229,7 +228,7 @@
     let calc_t = []
     calc_t = relativeArrays(reg_C, stan_err_var)
     console.log(calc_t)
-
+    
     //p valor
     let test_t = []
     let dof_f = 0
@@ -239,38 +238,39 @@
     //console.log(n_dat_use)
     //console.log(total_dof)
     //console.log(res_dof)
-
+    
     //t tabelado
     let tab_t = 0
     tab_t = -jStat.studentt.inv(0.2/2, res_dof)
     console.log(tab_t)
-
-//8. PROJEÇÃO
+    
+    //8. PROJEÇÃO
+    //let var_trasnformations = ["y", "x", "1/x", "x²", "1/x²", "e(x)", "1/e(x)", "ln(x)", "1/ln(x)"]
     //transformações de cada variável
     
     //valor da variável do avaliando
     
     //valor da variável transformada
-
+    
     //estimativa calculada unitária
-
+    
     //estimativa calculada total
-
+    
     //nível de confiança
-
+    
     //desvio padrão observado
-
+    
     //fator intervalo de confiança
-
+    
     //média, moda e mediana observado
-
+    
     //amplitude do intervalo de confiança
-
+    
     //valor unitário máximo e mínimo do intervalo de confiança
-
+    
     //valor total máximo e mínimo do intervalo de confiança
-
-//9. CAMPO DE ARBÍTRIO
+    
+    //9. CAMPO DE ARBÍTRIO
 
     //limite inferior unitário, total e do campo de arbítrio
 

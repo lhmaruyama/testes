@@ -6,7 +6,7 @@ function addLine() {
   for (let i = 0; i < tableData.rows[0].cells.length; i++) {
     celula = line.insertCell(i);
     if (i == 0) {
-      celula.innerHTML = String(tableData.rows.length - 2).padStart(2, "0");
+      celula.innerHTML = String(tableData.rows.length - 3).padStart(2, "0");
     }
     if (i == 1) {
       const checkbox = document.createElement('input');
@@ -40,6 +40,12 @@ function addColumn() {
     celula.contentEditable = true;
 
     if (i == 1) {
+      const dropdown = document.createElement('select');
+      celula.appendChild(dropdown);
+      celula.contentEditable = false;
+    }
+
+    if (i == 2) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxC'
       checkbox.type = 'checkbox';
@@ -47,10 +53,13 @@ function addColumn() {
       celula.contentEditable = false;
 
     }
-    if (i < 2) {
+    if (i < 3) {
       celula.style.backgroundColor = "#dddddd"
     }
   }
+  
+  transformations()
+
 }
 
 function removeColumn() {

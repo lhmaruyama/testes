@@ -15,7 +15,9 @@ const VALUES = [VALOR, AREA, LOC, ACAB]
 let celula
 //let line
 //let coluna
-for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
+
+//colunas
+for (let i = tableData.rows.length; i < VALOR.length + 3; i++) { //3 é o numero de linhas do "cabeçário" da tabela
 
   let line = tableData.insertRow();
   //celula = line.insertCell();
@@ -24,9 +26,9 @@ for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
   for (let j = 0; j < VAR.length; j++) {
     celula = line.insertCell();
     celula.contentEditable = true;
-    if (j == 0) {
-      celula.innerHTML = String(tableData.rows.length - 2).padStart(2, "0");
 
+    if (j == 0) {
+      celula.innerHTML = String(tableData.rows.length - 3).padStart(2, "0");
 
     }
     if (j == 1) {
@@ -48,38 +50,45 @@ for (let i = tableData.rows.length; i < VALOR.length + 2; i++) {
 
 }
 
-for (let i = 0; i < VALOR.length + 2; i++) {
+//linhas
+
+for (let i = 0; i < VALOR.length + 3; i++) {
   for (let j = 0; j < VAR.length - 2; j++) {
     celula = tableData.rows[i].insertCell(-1);
     celula.contentEditable = true;
-
+    
     if (i == 1) {
+      const dropdown = document.createElement('select');
+      celula.appendChild(dropdown);
+      celula.contentEditable = false;
+    }
+
+    if (i == 2) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxC'
       checkbox.type = 'checkbox';
       checkbox.checked = true
       celula.appendChild(checkbox);
       celula.contentEditable = false;
-
     }
-    if (i < 2) {
+    if (i < 3) {
       celula.style.backgroundColor = "#dddddd"
     }
   }
 }
 
 //preenche os dados na tabela
-for (let i = 2; i < tableData.rows.length; i++) {
+for (let i = 3; i < tableData.rows.length; i++) {
 
   tableData.rows[0].cells[2].innerHTML = VAR[0]
   tableData.rows[0].cells[3].innerHTML = VAR[1]
   tableData.rows[0].cells[4].innerHTML = VAR[2]
   tableData.rows[0].cells[5].innerHTML = VAR[3]
 
-  tableData.rows[i].cells[2].innerHTML = VALOR[i - 2]
-  tableData.rows[i].cells[3].innerHTML = AREA[i - 2]
-  tableData.rows[i].cells[4].innerHTML = LOC[i - 2]
-  tableData.rows[i].cells[5].innerHTML = ACAB[i - 2]
+  tableData.rows[i].cells[2].innerHTML = VALOR[i - 3]
+  tableData.rows[i].cells[3].innerHTML = AREA[i - 3]
+  tableData.rows[i].cells[4].innerHTML = LOC[i - 3]
+  tableData.rows[i].cells[5].innerHTML = ACAB[i - 3]
 
 }
 

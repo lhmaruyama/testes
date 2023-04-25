@@ -198,6 +198,9 @@ const inverseMatrix = (matrix, determinant, adjunct) => {
       return inverse;
 }
 
+
+
+
 //1. DADOS E VARIÁVEIS DO MODELO
 
     //total de variáveis coletadas do modelo
