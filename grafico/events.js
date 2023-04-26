@@ -13,10 +13,10 @@ selectAll.addEventListener("click", () => {
   }
 })
 
-let fildAll = document.querySelectorAll("td")
+let filldAll = document.querySelectorAll("td")
 
-for (let i = 1; i < fildAll.length; i++) {
-  fildAll[i].addEventListener("input", function () {
+for (let i = 1; i < filldAll.length; i++) {
+  filldAll[i].addEventListener("input", function () {
 
     console.log("input");
     data = dataLoad()
@@ -24,6 +24,17 @@ for (let i = 1; i < fildAll.length; i++) {
 
   });
 }
+
+/* let dropdown = document.querySelectorAll("select")
+
+for (let i = 1; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("input", function () {
+
+    console.log("select");
+
+
+  });
+} */
 
 
 let selectOne = document.querySelectorAll("input[type=checkbox]");

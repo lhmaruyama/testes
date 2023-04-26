@@ -1,25 +1,64 @@
 const sumSquaresArrayNumber = (array, number) => {
-    return array.reduce((accumulated, value) => accumulated + ((value - number) ** 2), 0)
- }
+  return array.reduce((accumulated, value) => accumulated + ((value - number) ** 2), 0)
+}
 
 const sumSquaresArrayArray = (array1, array2) => {
-    return array1.reduce((accumulated, value, index) => accumulated + ((value - array2[index]) ** 2), 0)
- }
+  return array1.reduce((accumulated, value, index) => accumulated + ((value - array2[index]) ** 2), 0)
+}
 
-const subtractionArrays = (array1, array2)=> {
+const subtractionArrays = (array1, array2) => {
   return array1.map((value, index) => value - array2[index])
 }
 
-const subtractionNumberArray = (number, array)=> {
+const subtractionNumberArray = (number, array) => {
   return array.map(value => number - value)
 }
 
-const relativeArrays = (array1, array2)=> {
+const relativeArrays = (array1, array2) => {
   return array1.map((value, index) => value / array2[index])
 }
 
-const relativeArrayNumber = (array, number)=> {
+const relativeArrayNumber = (array, number) => {
   return array.map(value => value / number)
+}
+
+//let list_trasnf = ["x", "1/x", "x²", "1/x²", "e(x)", "1/e(x)", "ln(x)", "1/ln(x)"]
+const dataTransformation = (number, curve) => {
+  let result = 0
+
+  if (curve == "x" || curve == "y") {
+    result = number
+  }
+
+  if (curve == "1/x") {
+    result = 1 / number
+  }
+
+  if (curve == "x²") {
+    result = number * number
+  }
+
+  if (curve == "1/x²") {
+    result = 1 / (number * number)
+  }
+
+  if (curve == "e(x)") {
+    result = Math.exp(number)
+  }
+
+  if (curve == "1/e(x)") {
+    result = 1 / Math.exp(number)
+  }
+
+  if (curve == "ln(x)") {
+    result = Math.log(number)
+  }
+
+  if (curve == "1/ln(x)") {
+    result = 1 / Math.log(number)
+  }
+
+  return result
 }
 
 

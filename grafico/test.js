@@ -4,6 +4,7 @@ const AREA = [159.75, 120, 134.5, 140.25, 115, 68, 140, 107, 80, 54, 63, 58, 130
 const LOC = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3]
 const ACAB = [5, 5, 4, 4, 4, 5, 5, 4, 5, 6, 6, 5, 5, 5, 5, 6, 7, 6, 6, 6, 6, 6, 6, 5, 5, 7, 6, 6]
 const VALOR = [3755.87, 3458.33, 3494.42, 2852.05, 4000, 4705.88, 4178.57, 3037.38, 5062.5, 5370.37, 5873.02, 5344.83, 5000, 5533.6, 5703.7, 5425.93, 6993.01, 6214.29, 5214.29, 4900, 5930.87, 4909.09, 4909.09, 5000, 4875, 7500, 5135.14, 6854.84]
+const ASSES = [5007.59, 65.9, 2, 5]
 const VALUES = [VALOR, AREA, LOC, ACAB]
 //console.log(jStat.sum(AREA))
 //console.log(jStat.sum(LOC))
@@ -85,11 +86,18 @@ for (let i = 4; i < tableData.rows.length; i++) {
   tableData.rows[0].cells[4].innerHTML = VAR[2]
   tableData.rows[0].cells[5].innerHTML = VAR[3]
 
+  
   tableData.rows[i].cells[2].innerHTML = VALOR[i - 4]
   tableData.rows[i].cells[3].innerHTML = AREA[i - 4]
   tableData.rows[i].cells[4].innerHTML = LOC[i - 4]
   tableData.rows[i].cells[5].innerHTML = ACAB[i - 4]
+  
+}
 
+for (let j = 2; j < tableData.rows[0].cells.length; j++) {
+
+  tableData.rows[1].cells[j].innerHTML = ASSES[j - 2]
+  
 }
 
 

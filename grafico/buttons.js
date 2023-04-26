@@ -39,13 +39,13 @@ function addColumn() {
     celula = tableData.rows[i].insertCell(-1);
     celula.contentEditable = true;
 
-    if (i == 1) {
+    if (i == 2) {
       const dropdown = document.createElement('select');
       celula.appendChild(dropdown);
       celula.contentEditable = false;
     }
 
-    if (i == 2) {
+    if (i == 3) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxC'
       checkbox.type = 'checkbox';
@@ -53,13 +53,12 @@ function addColumn() {
       celula.contentEditable = false;
 
     }
-    if (i < 3) {
+    if (i < 4) {
       celula.style.backgroundColor = "#dddddd"
     }
   }
   
   transformations()
-
 }
 
 function removeColumn() {
