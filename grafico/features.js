@@ -252,7 +252,6 @@
     //valor da variável transformada
 
     let asses_transf = []
-
     for (let i = 0; i < asses.length; i++) {
         asses_transf[i] = dataTransformation(asses[i], transf[i])
 
@@ -260,23 +259,53 @@
     console.log(asses_transf)
     
     //estimativa calculada unitária
-    
+    let est_calculated = 0
+    for (let index = 0; index < reg_C.length; index++) {
+        if (index == 0) {
+            est_calculated =  reg_C[index]
+        }
+        if (index > 0) {
+            est_calculated = est_calculated + reg_C[index]*asses_transf[index]
+          }
+      }
+    console.log(est_calculated)
     //estimativa calculada total
-    
+    let est_calculated_total = 0
+    est_calculated_total = est_calculated * asses[1]
+    console.log(est_calculated_total)
+
     //nível de confiança
-    
+    let trust_level = 0.80
+    let alpha = 1 - trust_level
+
     //desvio padrão observado
-    
+    let sd_Y = jStat.stdev(data_Y, true)
+    console.log(sd_Y)
+
+    //valor unitário máximo e mínimo do intervalo de confiança
+    //valor total máximo e mínimo do intervalo de confiança
+    let conf_interval = []
+    conf_interval = jStat.tci(mean_Y, alpha, data_Y)
+    console.log(conf_interval)
+
     //fator intervalo de confiança
+    let conf_int_factor = 0
+    conf_int_factor = conf_interval[1] - mean_Y
+    console.log(conf_int_factor)
+
+    //amplitude do intervalo de confiança
+    let conf_int_breadth = 2 * conf_int_factor / mean_Y
+    console.log(conf_int_breadth)
     
     //média, moda e mediana observado
-    
-    //amplitude do intervalo de confiança
-    
-    //valor unitário máximo e mínimo do intervalo de confiança
-    
-    //valor total máximo e mínimo do intervalo de confiança
-    
+    let mode_Y = 0
+    mode_Y = Math.max(...jStat.mode(data_Y))
+    console.log(mode_Y)
+
+    let median_Y = 0
+    median_Y = jStat.median(data_Y)
+    console.log(median_Y)
+
     //9. CAMPO DE ARBÍTRIO
 
     //limite inferior unitário, total e do campo de arbítrio
