@@ -265,7 +265,7 @@
             est_calculated =  reg_C[index]
         }
         if (index > 0) {
-            est_calculated = est_calculated + reg_C[index]*asses_transf[index]
+            est_calculated = est_calculated + reg_C[index] * asses_transf[index]
           }
       }
     console.log(est_calculated)
@@ -309,14 +309,45 @@
     //9. CAMPO DE ARBÍTRIO
 
     //limite inferior unitário, total e do campo de arbítrio
-
-    //estimativa calculada unitário, total e do campo de arbítrio
-
     //limite superior unitário, total e do campo de arbítrio
+    let field_will = []
+    field_will[0] = 0.85 * est_calculated
+    field_will[1] = 1.15 * est_calculated
+    console.log(field_will)
+
+    let field_will_total = []
+    field_will_total[0] =  conf_interval[0] * asses[1]
+    field_will_total[1] =  conf_interval[1] * asses[1]
+    console.log(field_will_total)
+
+    let field_will_perc = []
+    field_will_perc[0] =  conf_interval[0] / est_calculated - 1
+    field_will_perc[1] =  conf_interval[1] / est_calculated - 1
+    console.log(field_will_perc)
 
     //gráfico do campo de arbítrio
 
 //10. CORRELAÇÕES
+    
+    let correlation = []
+    for (let i = 0; i < data.length; i++) {
+        correlation[i] = []
+
+        for (let j = 0; j < data.length; j++) {
+            if (i > j) {
+                let num = jStat.corrcoeff(data[i], data[j])
+                correlation[i][j] = num.toExponential(2)
+                
+            } else {
+                correlation[i][j] = 1
+            }
+            //console.log(i,j)
+
+        }
+    }
+    console.log(correlation)
+
+
 
     //tabela de correlações das variáveis utilizadas no modelo
 
