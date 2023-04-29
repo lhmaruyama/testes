@@ -10,15 +10,20 @@ const VALUES = [VALOR, AREA, LOC, ACAB]
 //console.log(jStat.sum(LOC))
 //console.log(jStat.sum(ACAB))
 //console.log(jStat.sum(VALOR))
+ lh = 3 //número de linhas do cabeçalho: variaveis, avaliando, transformada e checkbox
+ ch = 2 //número de colunas do cabeçalho da lateral: itens, checkbox
 
-
+ lx = 2 //número da linha que contém o checkbox do cabeçalho
+ la = 1 //número da linha que contem o avaliando
+ cx = 1 //número da coluna que contém o checkbox do cabeçalho lateral
+ ci = 0 //número da coluna que contem o campo item
 //adiciona linhas e colunas à tabela de forma automatica para receber dados de teste
 let celula
 //let line
 //let coluna
 
 //colunas
-for (let i = tableData.rows.length; i < VALOR.length + 4; i++) { //4 é o numero de linhas do "cabeçário" da tabela
+for (let i = tableData.rows.length; i < VALOR.length + lh; i++) { //lh é o numero de linhas do "cabeçário" da tabela
 
   let line = tableData.insertRow();
   //celula = line.insertCell();
@@ -28,11 +33,11 @@ for (let i = tableData.rows.length; i < VALOR.length + 4; i++) { //4 é o numero
     celula = line.insertCell();
     celula.contentEditable = true;
 
-    if (j == 0) {
-      celula.innerHTML = String(tableData.rows.length - 4).padStart(2, "0");
+    if (j == ci) {
+      celula.innerHTML = String(tableData.rows.length - lh).padStart(2, "0");
 
     }
-    if (j == 1) {
+    if (j == cx) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxL'
       checkbox.type = 'checkbox';
@@ -41,7 +46,7 @@ for (let i = tableData.rows.length; i < VALOR.length + 4; i++) { //4 é o numero
       
       //celula.innerHTML = '<input class="checkbox" type="checkbox">'
     }
-    if (j <= 1) {
+    if (j < ch) {
       celula.contentEditable = false;
       celula.style.backgroundColor = "#dddddd"
     }
@@ -53,18 +58,18 @@ for (let i = tableData.rows.length; i < VALOR.length + 4; i++) { //4 é o numero
 
 //linhas
 
-for (let i = 0; i < VALOR.length + 4; i++) {
-  for (let j = 0; j < VAR.length - 2; j++) {
+for (let i = 0; i < VALOR.length + lh; i++) {
+  for (let j = 0; j < VAR.length - ch; j++) {
     celula = tableData.rows[i].insertCell(-1);
     celula.contentEditable = true;
     
-    if (i == 2) {
+/*     if (i == ls) {
       const dropdown = document.createElement('select');
       celula.appendChild(dropdown);
       celula.contentEditable = false;
-    }
+    } */
 
-    if (i == 3) {
+    if (i == lx) {
       const checkbox = document.createElement('input');
       checkbox.className = 'checkboxC'
       checkbox.type = 'checkbox';
@@ -72,14 +77,14 @@ for (let i = 0; i < VALOR.length + 4; i++) {
       celula.appendChild(checkbox);
       celula.contentEditable = false;
     }
-    if (i < 4) {
+    if (i < lh) {
       celula.style.backgroundColor = "#dddddd"
     }
   }
 }
 
 //preenche os dados na tabela
-for (let i = 4; i < tableData.rows.length; i++) {
+for (let i = lh; i < tableData.rows.length; i++) {
 
   tableData.rows[0].cells[2].innerHTML = VAR[0]
   tableData.rows[0].cells[3].innerHTML = VAR[1]
@@ -87,16 +92,16 @@ for (let i = 4; i < tableData.rows.length; i++) {
   tableData.rows[0].cells[5].innerHTML = VAR[3]
 
   
-  tableData.rows[i].cells[2].innerHTML = VALOR[i - 4]
-  tableData.rows[i].cells[3].innerHTML = AREA[i - 4]
-  tableData.rows[i].cells[4].innerHTML = LOC[i - 4]
-  tableData.rows[i].cells[5].innerHTML = ACAB[i - 4]
+  tableData.rows[i].cells[2].innerHTML = VALOR[i - lh]
+  tableData.rows[i].cells[3].innerHTML = AREA[i - lh]
+  tableData.rows[i].cells[4].innerHTML = LOC[i - lh]
+  tableData.rows[i].cells[5].innerHTML = ACAB[i - lh]
   
 }
 
-for (let j = 2; j < tableData.rows[0].cells.length; j++) {
+for (let j = ch; j < tableData.rows[0].cells.length; j++) {
 
-  tableData.rows[1].cells[j].innerHTML = ASSES[j - 2]
+  tableData.rows[1].cells[j].innerHTML = ASSES[j - ch]
   
 }
 

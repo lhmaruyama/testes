@@ -1,9 +1,13 @@
 
 let list_trasnf = ["x", "1/x", "x²", "1/x²", "e(x)", "1/e(x)", "ln(x)", "1/ln(x)"]
-const lh = 4 //número de linhas do cabeçalho: variaveis, avaliando, transformada e checkbox
+const lh = 3 //número de linhas do cabeçalho: variaveis, avaliando, transformada e checkbox
 const ch = 2 //número de colunas do cabeçalho da lateral: itens, checkbox
-const lx = 3 //número da linha que contém o checkbox do cabeçalho
-const cx = 1 //número da linha que contém o checkbox do cabeçalho lateral
+
+const lx = 2 //número da linha que contém o checkbox do cabeçalho
+const la = 1 //número da linha que contem o avaliando
+const cx = 1 //número da coluna que contém o checkbox do cabeçalho lateral
+const ci = 0 //número da coluna que contem o campo item
+//const ls = 2 //número da linha que contém o menu suspenso
 
 const transformations = ()=>{
   let selects = document.querySelectorAll("select")
@@ -32,18 +36,25 @@ const tableLoad = () => {
   for (let i = 0; i < tableData.rows[0].cells.length; i++) {
     TABLE[i] = []
 
-    if (i > 1) {
-      asses[i - 2] = parseFloat(tableData.rows[1].cells[i].innerHTML)
+    if (i >= ch ) { //ch número de colunas do cabeçalho da lateral: itens, checkbox
+      asses[i - ch] = parseFloat(tableData.rows[la].cells[i].innerHTML) //la número da linha que contem o avaliando
       
     }
 
     for (let j = 0; j < tableData.rows.length; j++) {
       let node_check = tableData.rows[j].cells[i].querySelector("input[type=checkbox]")
-      let node_select = tableData.rows[j].cells[i].querySelector("select")
+      //let node_select = tableData.rows[j].cells[i].querySelector("select")
 
       //console.log(node_check)
       //console.log(node_select)
       if (node_check) {
+        TABLE[i][j] = node_check.checked
+        
+      } else {
+        TABLE[i][j] = tableData.rows[j].cells[i].innerHTML
+      }
+
+/*       if (node_check) {
         TABLE[i][j] = node_check.checked
         
       } else if (node_select){
@@ -52,7 +63,9 @@ const tableLoad = () => {
         cont++
       } else {
         TABLE[i][j] = tableData.rows[j].cells[i].innerHTML
-      }
+      } */
+
+
     }
   }
 
@@ -62,7 +75,7 @@ const tableLoad = () => {
 }
 table = tableLoad()
 //tableLoad()
-console.log(asses)
+//console.log(asses)
 
 
 //carrega dados apenas das variaveis
@@ -70,21 +83,22 @@ const dataLoad = () => {
 
   let DATA = []
 
-  for (let i = 2; i < tableData.rows[0].cells.length; i++) {
-    let variable = tableData.rows[3].cells[i].querySelector("input[type=checkbox]") //3 é a linha que começa o checkbox
+  for (let i = ch; i < tableData.rows[0].cells.length; i++) { //ch número de colunas do cabeçalho da lateral: itens, checkbox
+    let variable = tableData.rows[lx].cells[i].querySelector("input[type=checkbox]") //lx número da linha que contém o checkbox do cabeçalho
     let line = []
-    let menu = tableData.rows[2].cells[i].querySelector("select")
-    let curve = menu.value
+    //let menu = tableData.rows[ch].cells[i].querySelector("select")
+    //let curve = menu.value
     
-    for (let j = 4; j < tableData.rows.length; j++) { //4 é numero de linhas do cabeçario
-      let sample = tableData.rows[j].cells[1].querySelector("input[type=checkbox]")
+    for (let j = lh; j < tableData.rows.length; j++) { // lh número de linhas do cabeçalho: variaveis, avaliando, transformada e checkbox
+      let sample = tableData.rows[j].cells[cx].querySelector("input[type=checkbox]") // cx número da coluna que contém o checkbox do cabeçalho lateral
 
       if (sample.checked == true && variable.checked == true) {
         let number = parseFloat(tableData.rows[j].cells[i].innerHTML)
         
-        let number_transf = dataTransformation(number, curve)
+        //let number_transf = dataTransformation(number, curve)
 
-        line.push(number_transf)
+        //line.push(number_transf)
+        line.push(number)
 
         //line.push(parseFloat(tableData.rows[j].cells[i].innerHTML))
       }
