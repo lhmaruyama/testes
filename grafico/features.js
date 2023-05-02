@@ -375,22 +375,43 @@
 let var_curve = []
 let var_dependent = []
 let var_transf_dependent = []
-
+//todas variaveis utlizadas e suas transformações
 for (let i = 0; i < data.length; i++) {
-
-}
-
-for (let j = 0; j < list_trasnf.length; j++) {
-    var_dependent[j] = []
-    let curve = list_trasnf[j]
-
-    for (let k = 0; k < data[0].length; k++) {
-        let number = data[0][k]
-        var_dependent[j][k] = dataTransformation(number, curve)
+    var_curve[i] = [] //variaveis
+    
+    for (let j = 0; j < list_trasnf.length; j++) {
+        //var_dependent[j] = [] //transformações das variaveis
+        let curve = list_trasnf[j]
+        var_curve[i][j] = []
+        
+        for (let k = 0; k < data[i].length; k++) {
+            let number = data[i][k]
+            //var_dependent[j][k] = dataTransformation(number, curve) //transformações dos dados
+            var_curve[i][j][k] = dataTransformation(number, curve)
+            
+        }
         
     }
 
 }
 
-let arrayX = [[[1],[2],[3]],[[4],[5],[6]],[[7],[8],[9]]]
-console.log(arrayX[1][1][0])
+//let arrayX = [[[1],[2],[3]],[[4],[5],[6]],[[7],[8],[9]]]
+//console.log(arrayX[1][1][0])
+console.log(var_curve)
+
+
+//todas variaveis utilizadas e seus R² parcial
+for (let i = 0; i < data.length; i++) {
+   var_dependent[i] = [] //transformações das variaveis
+   
+   for (let j = 0; j < list_trasnf.length; j++) {
+       let num = jStat.corrcoeff(var_curve[0][0], var_curve[i][j])
+       var_dependent[i][j] = (num*num).toFixed(4)
+       //var_dependent[i][j] = (num*num).toExponential(3)
+       //var_dependent[i][j] = (num*num).toExponential(2)
+       
+       //console.log(var_curve[i][j])
+    }
+
+}
+console.log(var_dependent)
