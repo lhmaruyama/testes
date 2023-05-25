@@ -94,7 +94,15 @@ function chart() {
 }
 //chart()
 
+let yData = data[0]
+let xData = data[1]
+let matrix = []
+matrix[0] = yData
+matrix[1] = xData
+let coefReg = regressionCoefficients(matrix)
 
+console.log(matrix)
+console.log(coefReg[1][0])
 
 function drawScatterPlotWithRegression(xData, yData, coefReg) {
   var scatterChartCanvas = document.getElementById('chart').getContext('2d');
@@ -120,8 +128,8 @@ function drawScatterPlotWithRegression(xData, yData, coefReg) {
       datasets: [{
           label: 'Regressão Linear',
           data: [
-              { x: Math.min(...xData), y: coefReg[0] * Math.min(...xData) + coefReg[1] },
-              { x: Math.max(...xData), y: coefReg[0] * Math.max(...xData) + coefReg[1] }
+              { x: Math.min(...xData), y: coefReg[1][0] * Math.min(...xData) + coefReg[0][0] },
+              { x: Math.max(...xData), y: coefReg[1][0] * Math.max(...xData) + coefReg[0][0] }
           ],
           type: 'line',
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -173,8 +181,8 @@ function drawScatterPlotWithRegression(xData, yData, coefReg) {
   scatterChart.data.datasets.push(regressionData.datasets[0]);
   scatterChart.update();
 }
-var xData = [1, 2, 3, 4, 5];
-var yData = [3, 4, 7, 8, 11];
-var coefReg = [2, 0.5];
+//var xData = [1, 2, 3, 4, 5];
+//var yData = [3, 4, 7, 8, 11];
+//var coefReg = [2, 0.5];
 
 drawScatterPlotWithRegression(xData, yData, coefReg);

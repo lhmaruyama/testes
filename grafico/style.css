@@ -39,12 +39,22 @@ button:hover {
 	background-color: #3e8e41;
 }
 
-#chart {
+/* #chart {
 	height: 100px;
 	width: 100px;
-}
+		height: 30%;
+		width: 30%;
+
+} */
 
 canvas{
-	height: 100px;
-	width: 100px;
+	margin-top: 100px;
+	margin-left: 150px;
+	margin-right: 150px;
+	
+	/* padding: 100px; */
+	/* margin: 0 auto; */
+	position: absolute;
+	
+
 }
