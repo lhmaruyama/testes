@@ -393,10 +393,10 @@ for (let i = 0; i < data.length; i++) {
         let num = jStat.corrcoeff(var_curve[0][0], var_curve[i][j])
         var_dependent[i][j] = (num*num).toFixed(4)
     }
-
 }
 
-//console.log(var_curve)
+console.log(var_curve)
+console.log(var_dependent)
 
 //todas variaveis utilizadas e seus R² parcial
 /* for (let i = 0; i < data.length; i++) {
@@ -410,4 +410,3 @@ for (let i = 0; i < data.length; i++) {
     }
 
 } */
-//console.log(var_dependent)
