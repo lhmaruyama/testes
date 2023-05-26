@@ -395,9 +395,9 @@ for (let i = 0; i < data.length; i++) {
     }
 }
 
-console.log(var_curve)
-console.log(var_curve[0][0])
-console.log(var_curve[1][0])
+//console.log(var_curve)
+//console.log(var_curve[0][0])
+//console.log(var_curve[1][0])
 
 //console.log(var_dependent)
 

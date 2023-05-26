@@ -101,8 +101,8 @@ matrix[0] = yData
 matrix[1] = xData
 let coefReg = regressionCoefficients(matrix)
 
-console.log(matrix)
-console.log(coefReg[1][0])
+//console.log(matrix)
+//console.log(coefReg[1][0])
 
 function drawScatterPlotWithRegression(xData, yData, coefReg) {
   var scatterChartCanvas = document.getElementById('chart').getContext('2d');
@@ -185,4 +185,42 @@ function drawScatterPlotWithRegression(xData, yData, coefReg) {
 //var yData = [3, 4, 7, 8, 11];
 //var coefReg = [2, 0.5];
 
-drawScatterPlotWithRegression(xData, yData, coefReg);
+//drawScatterPlotWithRegression(xData, yData, coefReg);
+
+
+function drawNBR14653Chart(arbitrageSup, arbitrageInf, estimate) {
+  var chartCanvas = document.getElementById('chart').getContext('2d');
+
+  var data = {
+    labels: ["hbb"],
+    datasets: [{
+      label: 'Valores',
+      data: [arbitrageSup, arbitrageInf, estimate],
+      fill: false,
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 2
+    }]
+  };
+
+  var options = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  var chart = new Chart(chartCanvas, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
+
+
+var arbitrageSup = {x: 10, y:1000};
+var arbitrageInf = {x: 10, y:2000};
+var estimate = {x: 10, y:3000};
+
+drawNBR14653Chart(arbitrageSup, arbitrageInf, estimate);
+
